@@ -19,6 +19,7 @@ const orderSchema = mongoose.Schema(
           ref: 'Product',
         },
         size: { type: String },
+        customText: { type: String, default: "" },
         color: { type: String },
       },
     ],

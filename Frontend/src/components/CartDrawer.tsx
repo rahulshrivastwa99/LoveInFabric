@@ -31,7 +31,8 @@ const CartItem = ({ item }: { item: any }) => {
       dispatch(removeFromCart({ 
           productId: item.productId, 
           size: item.size, 
-          color: item.color 
+          color: item.color,
+          customText: item.customText
       }));
 
       // Add new item with new size
@@ -54,6 +55,7 @@ const CartItem = ({ item }: { item: any }) => {
               productId: item.productId,
               size: item.size,
               color: item.color,
+              customText: item.customText,
               quantity: currentSizeStock
           }));
       }
@@ -69,8 +71,11 @@ const CartItem = ({ item }: { item: any }) => {
         <div>
           <div className="flex justify-between items-start">
             <h4 className="font-medium text-sm text-gray-900 line-clamp-2">{item.name}</h4>
+            {item.customText && (
+               <p className="text-xs text-muted-foreground mt-0.5">Customization: "{item.customText}"</p>
+            )}
             <button
-              onClick={() => dispatch(removeFromCart({ productId: item.productId, size: item.size, color: item.color }))}
+              onClick={() => dispatch(removeFromCart({ productId: item.productId, size: item.size, color: item.color, customText: item.customText }))}
               className="text-gray-400 hover:text-red-500 transition-colors p-1"
             >
               <X size={14} />
@@ -107,7 +112,7 @@ const CartItem = ({ item }: { item: any }) => {
             <div className="relative">
               <select
                 value={item.quantity}
-                onChange={(e) => dispatch(updateQuantity({ productId: item.productId, size: item.size, color: item.color, quantity: Number(e.target.value) }))}
+                onChange={(e) => dispatch(updateQuantity({ productId: item.productId, size: item.size, color: item.color, customText: item.customText, quantity: Number(e.target.value) }))}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               >
                 {Array.from({ length: Math.min(10, Math.max(1, currentSizeStock)) }, (_, i) => i + 1).map((num) => (

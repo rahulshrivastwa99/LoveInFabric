@@ -398,8 +398,17 @@ const Checkout = () => {
                              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                           </div>
                           <div className="flex-1 min-w-0">
-                             <p className="font-medium text-sm truncate">{item.name}</p>
-                             <p className="text-xs text-muted-foreground mt-1">Size: {item.size} | Color: {item.color}</p>
+                             <div>
+                                <p className="font-bold text-sm">{item.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  Size: {item.size} | Color: {item.color}
+                                </p>
+                                {item.customText && (
+                                  <p className="text-xs text-muted-foreground mt-0.5">
+                                    Customization: "{item.customText}"
+                                  </p>
+                                )}
+                              </div>
                              <div className="flex justify-between items-center mt-2">
                                 <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                                 <p className="text-sm font-medium">{formatPrice(item.price * item.quantity)}</p>

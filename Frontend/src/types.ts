@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   price: number;
   description: string;
-  category: 'men' | 'women' | 'accessories';
+  category: 'men' | 'women' | 'accessories' | 'Standard Tees' | 'Custom Tees' | 'Blankets';
   sizes: { size: string; stock: number }[];
   colors: { name: string; hex: string }[];
   images: string[];
@@ -19,4 +19,5 @@ export interface Product {
   rating: number;
   numReviews: number;
   isBestSeller?: boolean;
+  isCustomizable?: boolean;
 }
