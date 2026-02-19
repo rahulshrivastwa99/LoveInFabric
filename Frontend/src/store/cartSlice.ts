@@ -17,7 +17,7 @@ interface CartState {
 
 const loadCart = (): CartItem[] => {
   try {
-    const saved = localStorage.getItem('novan-cart');
+    const saved = localStorage.getItem('LoveInFabric-cart');
     return saved ? JSON.parse(saved) : [];
   } catch {
     return [];
@@ -25,7 +25,7 @@ const loadCart = (): CartItem[] => {
 };
 
 const saveCart = (items: CartItem[]) => {
-  localStorage.setItem('novan-cart', JSON.stringify(items));
+  localStorage.setItem('LoveInFabric-cart', JSON.stringify(items));
 };
 
 const initialState: CartState = {

@@ -103,7 +103,7 @@ const ShippingReturns = () => {
                 reverse pickup by our courier partners, we may request the
                 customer to self-ship the product to our return address. Courier
                 charges will be reimbursed upon submission of a valid receipt to{" "}
-                <strong>Novan.clothing15@gmail.com</strong>.
+                <strong>LoveInFabric.clothing15@gmail.com</strong>.
               </p>
             </section>
           </div>

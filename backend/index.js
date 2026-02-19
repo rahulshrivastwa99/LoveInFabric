@@ -47,7 +47,7 @@ app.use(limiter);
 
 // Basic Route
 app.get('/', (req, res) => {
-  res.send('NovanOfficial Backend API is Live...');
+  res.send('LoveInFabric Backend API is Live...');
 });
 
 app.use('/api/products', productRoutes);
@@ -58,7 +58,7 @@ app.use('/api/payment', paymentRoutes);
 
 
 app.get('/', (req, res) => {
-  res.send('NovanOfficial Backend API is Live...');
+  res.send('LoveInFabric Backend API is Live...');
 });
 
 const PORT = process.env.PORT || 5000;
@@ -67,7 +67,7 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 // const axios = require('axios');
 
 // const keepAlive = () => {
-//   const url = `https://novanofficialapi.onrender.com/`; 
+//   const url = `https://LoveInFabricapi.onrender.com/`; 
 //   setInterval(async () => {
 //     try {
 //       await axios.get(url);

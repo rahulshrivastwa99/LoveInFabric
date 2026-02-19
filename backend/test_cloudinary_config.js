@@ -17,7 +17,7 @@ try {
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'novan-products',
+      folder: 'LoveInFabric-products',
       allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
     },
   });

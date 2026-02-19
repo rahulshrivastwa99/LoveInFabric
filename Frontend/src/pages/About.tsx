@@ -32,7 +32,7 @@ const About = () => {
             className="mb-16"
           >
             <h1 className="font-serif text-5xl text-black leading-tight mb-4">
-              Novan: Where Your Weird is Your Superpower
+              LoveInFabric: Where Your Weird is Your Superpower
             </h1>
             <p className="text-xl text-gray-500 font-serif leading-relaxed italic">
               "We're not about fitting in. We're about owning your crazy, loud,
@@ -42,7 +42,7 @@ const About = () => {
 
           <div className="space-y-12 text-gray-700 leading-relaxed">
             <p className="text-lg">
-              Every blank wall's a canvas, every hallway a runway. Novan is your
+              Every blank wall's a canvas, every hallway a runway. LoveInFabric is your
               antidote to the mundane. We're streetwear for the next generation,
               the generation that turns curiosity into fire, imagination into
               fuel. We're the vocal minority, the square pegs in the round
@@ -51,9 +51,9 @@ const About = () => {
 
             <section className="bg-gray-50 p-10 rounded-2xl border border-gray-100">
               <h3 className="font-serif text-2xl text-black mb-4">
-                The Novan Motto
+                The LoveInFabric Motto
               </h3>
-              <p className="italic">"Be you. Be Novan."</p>
+              <p className="italic">"Be you. Be LoveInFabric."</p>
               <p className="mt-4">
                 Often, a person who does things differently is termed as
                 "weirdo". Truth be told, a weirdo is simply someone open to
@@ -84,7 +84,7 @@ const About = () => {
 
             <p>
               Unparalleled prints, out-of-the-ordinary styles, head-turning
-              graphics? Novan's like your wardrobe on fleek. Join the tribe,
+              graphics? LoveInFabric's like your wardrobe on fleek. Join the tribe,
               unleash your inner weirdo, and make every damn day unskippable.
             </p>
           </div>

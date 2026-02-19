@@ -26,7 +26,7 @@ const Preloader = ({ onComplete }: { onComplete: () => void }) => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="font-serif text-4xl lg:text-6xl font-bold tracking-[0.15em] text-foreground"
           >
-            NOVAN.
+            LoveInFabric.
           </motion.h1>
           <motion.div
             initial={{ scaleX: 0 }}

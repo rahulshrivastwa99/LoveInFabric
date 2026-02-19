@@ -100,7 +100,7 @@ const Orders = () => {
             key: razorpayKey,
             amount: razorpayOrder.amount,
             currency: "INR",
-            name: "Novan Clothing",
+            name: "LoveInFabric Clothing",
             description: `Retry Order #${order._id}`,
             order_id: razorpayOrder.id,
             

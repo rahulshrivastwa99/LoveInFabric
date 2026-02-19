@@ -55,7 +55,7 @@ const Index = () => {
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest animate-pulse">
-        Loading Novan Collection...
+        Loading LoveInFabric Collection...
       </div>
     );
   }

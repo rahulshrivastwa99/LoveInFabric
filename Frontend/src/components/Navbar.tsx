@@ -45,7 +45,7 @@ const Navbar = () => {
       icon: <Sparkles size={13} className="text-emerald-400" />,
     },
     {
-      text: "NOVAN'S OFFICIAL WEBSITE – ORDER ONLY HERE",
+      text: "LoveInFabric'S OFFICIAL WEBSITE – ORDER ONLY HERE",
       icon: <ShieldCheck size={13} className="text-emerald-400" />,
     },
     {
@@ -170,7 +170,7 @@ const Navbar = () => {
             to="/"
             className="font-serif text-2xl lg:text-3xl tracking-[0.1em] font-bold z-50 mr-8 lg:mr-12"
           >
-            NOVAN
+            LoveInFabric
             <span className="text-[10px] align-top ml-0.5 tracking-normal font-sans font-light">
               ®
             </span>
@@ -226,7 +226,7 @@ const Navbar = () => {
               />
               <input
                 type="text"
-                placeholder="Search Novan"
+                placeholder="Search LoveInFabric"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -347,7 +347,7 @@ const Navbar = () => {
                     ) : (
                       <div className="p-5 text-center">
                         <h3 className="text-sm font-serif mb-1 tracking-wide">
-                          WELCOME TO NOVAN
+                          WELCOME TO LoveInFabric
                         </h3>
                         <p className="text-[10px] text-muted-foreground mb-4 leading-relaxed font-sans">
                           Join our community for exclusive access and rewards.
@@ -422,7 +422,7 @@ const Navbar = () => {
             >
               <div className="flex items-center justify-between px-6 py-5 border-b border-border/50">
                 <span className="text-xl tracking-[0.2em] font-bold font-serif">
-                  NOVAN.
+                  LoveInFabric.
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

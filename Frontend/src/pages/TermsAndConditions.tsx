@@ -43,9 +43,9 @@ const TermsAndConditions = () => {
             <section>
               <h3 className="font-serif text-xl text-black mb-3">OVERVIEW</h3>
               <p>
-                This website is operated by <strong>NovanClothing</strong>.
+                This website is operated by <strong>LoveInFabricClothing</strong>.
                 Throughout the site, the terms “we”, “us” and “our” refer to
-                NovanClothing. We offer this website, including all information,
+                LoveInFabricClothing. We offer this website, including all information,
                 tools and services available from this site to you, the user,
                 conditioned upon your acceptance of all terms, conditions,
                 policies and notices stated here.
@@ -91,7 +91,7 @@ const TermsAndConditions = () => {
               </h3>
               <p className="mb-4">
                 Our store uses <strong>Razorpay</strong> for secure and seamless
-                payment processing. By transacting on NovanClothing, you agree
+                payment processing. By transacting on LoveInFabricClothing, you agree
                 to the following:
               </p>
               <ul className="list-disc pl-5 space-y-2">
@@ -105,7 +105,7 @@ const TermsAndConditions = () => {
                   per Razorpay's processing timelines.
                 </li>
                 <li>
-                  NovanClothing is not liable for any transaction failures or
+                  LoveInFabricClothing is not liable for any transaction failures or
                   delays caused by bank servers or the payment gateway
                   infrastructure.
                 </li>
@@ -123,7 +123,7 @@ const TermsAndConditions = () => {
                 or Wrong Product Received. Refunds or replacements in such cases
                 are ONLY possible if the Unboxing Video of the delivered parcel
                 is available and shared with us at{" "}
-                <strong>Novan.clothing15@gmail.com</strong> or WhatsApp{" "}
+                <strong>LoveInFabric.clothing15@gmail.com</strong> or WhatsApp{" "}
                 <strong>+91 9958849763</strong>.
               </p>
             </section>
@@ -146,7 +146,7 @@ const TermsAndConditions = () => {
                 SECTION 13 - LIMITATION OF LIABILITY
               </h3>
               <p>
-                In no case shall NovanClothing, our directors, or employees be
+                In no case shall LoveInFabricClothing, our directors, or employees be
                 liable for any injury, loss, claim, or any direct, indirect,
                 incidental, punitive, or consequential damages of any kind
                 arising from your use of the service or any products procured
@@ -175,7 +175,7 @@ const TermsAndConditions = () => {
                 Questions about the Terms of Service should be sent to us at:
               </p>
               <p className="font-bold text-black mt-2">
-                Email: Novan.clothing15@gmail.com
+                Email: LoveInFabric.clothing15@gmail.com
               </p>
               <p className="font-bold text-black">WhatsApp: +91 9958849763</p>
             </section>

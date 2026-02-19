@@ -32,7 +32,7 @@ const AdminLayout = () => {
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <span className="font-serif text-lg tracking-[0.2em] text-white">NOVAN</span>
+          <span className="font-serif text-lg tracking-[0.2em] text-white">LoveInFabric</span>
         </div>
       </div>
 
@@ -51,7 +51,7 @@ const AdminLayout = () => {
         }`}
       >
         <div className="p-6 border-b border-white/10 hidden lg:block">
-          <span className="font-serif text-lg tracking-[0.3em] text-white">NOVAN</span>
+          <span className="font-serif text-lg tracking-[0.3em] text-white">LoveInFabric</span>
           <p className="font-body text-[10px] uppercase tracking-[0.25em] text-white/40 mt-1">Admin Panel</p>
         </div>
 

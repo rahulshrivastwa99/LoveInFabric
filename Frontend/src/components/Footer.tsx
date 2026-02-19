@@ -16,7 +16,7 @@ const Footer = () => {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
-      toast.success("Welcome to the Novan Fam!");
+      toast.success("Welcome to the LoveInFabric Fam!");
       setEmail("");
     }
   };
@@ -40,7 +40,7 @@ const Footer = () => {
           <div className="max-w-xl">
             <h2 className="font-black text-3xl lg:text-5xl uppercase leading-none tracking-tighter">
               JOIN OUR <br />
-              <span className="text-white">NOVAN FAM</span>
+              <span className="text-white">LoveInFabric FAM</span>
             </h2>
           </div>
 
@@ -171,7 +171,7 @@ const Footer = () => {
                 className="text-transparent stroke-text"
                 style={{ WebkitTextStroke: "1px black" }}
               >
-                — NOVAN
+                — LoveInFabric
               </span>
             </span>
           ))}
@@ -180,7 +180,7 @@ const Footer = () => {
 
       {/* BOTTOM BAR */}
       <div className="bg-black text-gray-500 py-4 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-3 text-[10px] font-bold tracking-widest uppercase">
-        <p>&copy; 2026 Novan Official. All Rights Reserved.</p>
+        <p>&copy; 2026 LoveInFabric. All Rights Reserved.</p>
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2 hover:text-white transition-colors"

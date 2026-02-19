@@ -64,7 +64,7 @@ const importData = async () => {
     // 3. Insert updated data
     await Product.insertMany(updatedProducts);
 
-    console.log('✨ NovanOfficial: Data Imported to MongoDB with Cloudinary Images!');
+    console.log('✨ LoveInFabric: Data Imported to MongoDB with Cloudinary Images!');
     process.exit();
   } catch (error) {
     console.error(`❌ Error with import: ${error.message}`);

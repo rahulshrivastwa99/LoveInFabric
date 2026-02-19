@@ -45,10 +45,10 @@ const PrivacyPolicy = () => {
                 INTRODUCTION
               </h3>
               <p>
-                The online store www.novanclothing.com ("Online Store") is owned
-                and operated by Novan Pvt Ltd, under the laws of India having
+                The online store www.LoveInFabricclothing.com ("Online Store") is owned
+                and operated by LoveInFabric Pvt Ltd, under the laws of India having
                 its registered office in Delhi. Through this Policy,
-                NovanClothing intends to convey the manner in which the user’s
+                LoveInFabricClothing intends to convey the manner in which the user’s
                 information is collated and used while providing the services of
                 the Online Store. This Policy is binding on every user of the
                 Online Store.
@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
               </h3>
               <p>
                 In case of any complaints or grievances, you may contact our
-                Support Team at <strong>Novan.clothing15@gmail.com</strong> or
+                Support Team at <strong>LoveInFabric.clothing15@gmail.com</strong> or
                 via WhatsApp at <strong>+91 9958849763</strong>.
               </p>
             </section>

@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const isAdmin = email.endsWith('@novan.com');
+    const isAdmin = email.endsWith('@LoveInFabric.com');
 
     const user = await User.create({
       name,

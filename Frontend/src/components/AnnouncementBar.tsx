@@ -20,7 +20,7 @@ const announcements = [
 },
 {
   id: 4,
-  text: "Novan's Official Website – Order Only Here",
+  text: "LoveInFabric's Official Website – Order Only Here",
   icon: <ShieldCheck size={16} />,
 },
 {

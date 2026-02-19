@@ -44,7 +44,7 @@ const Contact = () => {
                       Email Support
                     </h3>
                     <p className="text-black font-medium">
-                      Novan.clothing15@gmail.com
+                      LoveInFabric.clothing15@gmail.com
                     </p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const Contact = () => {
                       Headquarters
                     </h3>
                     <p className="text-black font-medium leading-relaxed">
-                      Novan Pvt Ltd.
+                      LoveInFabric Pvt Ltd.
                       <br />
                       Delhi, India
                     </p>
