@@ -8,6 +8,8 @@ export interface CartItem {
   size: string;
   color: string;
   image: string;
+  isCustomizable?: boolean;
+  customText?: string;
 }
 
 interface CartState {
@@ -39,7 +41,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<CartItem>) {
       const existing = state.items.find(
-        (i) => i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color
+        (i) => i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color && i.customText === action.payload.customText
       );
       if (existing) {
         existing.quantity += action.payload.quantity;
@@ -48,15 +50,15 @@ const cartSlice = createSlice({
       }
       saveCart(state.items);
     },
-    removeFromCart(state, action: PayloadAction<{ productId: string; size: string; color: string }>) {
+    removeFromCart(state, action: PayloadAction<{ productId: string; size: string; color: string; customText?: string }>) {
       state.items = state.items.filter(
-        (i) => !(i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color)
+        (i) => !(i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color && i.customText === action.payload.customText)
       );
       saveCart(state.items);
     },
-    updateQuantity(state, action: PayloadAction<{ productId: string; size: string; color: string; quantity: number }>) {
+    updateQuantity(state, action: PayloadAction<{ productId: string; size: string; color: string; customText?: string; quantity: number }>) {
       const item = state.items.find(
-        (i) => i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color
+        (i) => i.productId === action.payload.productId && i.size === action.payload.size && i.color === action.payload.color && i.customText === action.payload.customText
       );
       if (item) {
         item.quantity = Math.max(1, action.payload.quantity);

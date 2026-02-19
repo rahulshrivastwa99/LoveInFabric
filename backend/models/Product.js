@@ -18,7 +18,8 @@ const productSchema = new mongoose.Schema({
     }
   ],
   images: [String],
-  isBestSeller: { type: Boolean, default: false }
+  isBestSeller: { type: Boolean, default: false },
+  isCustomizable: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -108,6 +108,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
   const [wishlisted, setWishlisted] = useState(false);
+  const [customText, setCustomText] = useState("");
 
   useEffect(() => {
     if (product && wishlistItems) {
@@ -198,6 +199,8 @@ const ProductDetail = () => {
         size: selectedSize,
         color: product.colors?.[0]?.name || "Standard",
         image: productImages[0],
+        isCustomizable: product.isCustomizable,
+        customText: product.isCustomizable ? customText : "",
       }),
     );
 
@@ -279,7 +282,7 @@ const ProductDetail = () => {
 
               <div className="space-y-4 pt-6 border-t border-border">
                 <div className="flex justify-between items-center text-[11px] uppercase tracking-widest font-black">
-                  <span>Select Size</span>
+                  <span>{product.category === 'Blankets' ? 'Select Bed Size' : 'Select Size'}</span>
                   <button
                     onClick={() => setShowSizeGuide(true)}
                     className="flex items-center gap-1 underline opacity-70 hover:opacity-100"
@@ -288,10 +291,8 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {["S", "M", "L", "XL", "XXL"].map((sizeName) => {
-                    const sizeVariant = product.sizes.find(
-                      (s: any) => s.size === sizeName,
-                    );
+                  {product.sizes.map((sizeVariant: any) => {
+                    const sizeName = sizeVariant.size;
                     const isOutOfStock = !sizeVariant || sizeVariant.stock <= 0;
 
                     return (
@@ -301,7 +302,7 @@ const ProductDetail = () => {
                           !isOutOfStock && setSelectedSize(sizeName)
                         }
                         disabled={isOutOfStock}
-                        className={`w-14 h-12 flex items-center justify-center border-2 rounded-xl text-xs font-bold transition-all relative
+                        className={`min-w-[56px] h-12 px-4 flex items-center justify-center border-2 rounded-xl text-xs font-bold transition-all relative
                         ${selectedSize === sizeName ? "bg-foreground text-background border-foreground" : isOutOfStock ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50" : "hover:border-foreground border-border text-muted-foreground"}
                       `}
                       >
@@ -315,6 +316,28 @@ const ProductDetail = () => {
                     );
                   })}
                 </div>
+
+                {product.isCustomizable && (
+                  <div className="space-y-3 pt-4 border-t border-border mt-6">
+                    <div className="flex justify-between items-center text-[11px] uppercase tracking-widest font-black">
+                      <span>Custom Text (Optional)</span>
+                      <span className={customText.length > 20 ? "text-red-500" : "text-muted-foreground"}>
+                        {customText.length}/20
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      value={customText}
+                      onChange={(e) => setCustomText(e.target.value)}
+                      maxLength={20}
+                      placeholder="Enter name or text to print..."
+                      className="w-full border border-border rounded-lg px-4 py-3 text-sm outline-none focus:border-foreground transition-colors bg-transparent placeholder:text-muted-foreground/50"
+                    />
+                    <p className="text-[10px] text-muted-foreground italic">
+                      Note: Custom text will be printed exactly as entered.
+                    </p>
+                  </div>
+                )}
 
                 <div className="flex gap-4 pt-4">
                   <button

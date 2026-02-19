@@ -20,15 +20,37 @@ const AddProduct = () => {
   const [category, setCategory] = useState('');
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [isCustomizable, setIsCustomizable] = useState(false);
   
-  // Size & Stock State (Checkbox + Input logic)
-  // We track which sizes are checked (activeSizes) and the specific stock number (sizeStock)
-  const [sizeStock, setSizeStock] = useState<Record<string, string>>({
-    S: '', M: '', L: '', XL: '' 
-  });
-  const [activeSizes, setActiveSizes] = useState<Record<string, boolean>>({
-    S: false, M: false, L: false, XL: false
-  });
+  // Dynamic Size State
+  const [sizes, setSizes] = useState<{size: string, stock: number}[]>([]);
+  const [newSize, setNewSize] = useState('');
+  const [newStock, setNewStock] = useState('');
+
+  const handleAddSize = () => {
+    if (!newSize.trim()) {
+        toast.error('Please enter a size name');
+        return;
+    }
+    if (!newStock || Number(newStock) < 0) {
+        toast.error('Please enter a valid stock quantity');
+        return;
+    }
+    
+    // Check for duplicates
+    if (sizes.some(s => s.size.toLowerCase() === newSize.trim().toLowerCase())) {
+        toast.error('This size already exists');
+        return;
+    }
+
+    setSizes([...sizes, { size: newSize.trim(), stock: Number(newStock) }]);
+    setNewSize('');
+    setNewStock('');
+  };
+
+  const handleRemoveSize = (index: number) => {
+    setSizes(sizes.filter((_, i) => i !== index));
+  };
 
   // Handle selecting files from dialog or drop
   const handleFileChange = (files: FileList | null) => {
@@ -65,28 +87,17 @@ const AddProduct = () => {
       return;
     }
 
-    // Filter out sizes that are checked AND have a stock value
-    const validSizes = Object.keys(activeSizes).filter(s => activeSizes[s] && sizeStock[s]);
-    if (validSizes.length === 0) {
-      toast.error('Please select at least one size and add stock quantity');
-      setLoading(false);
-      return;
-    }
-
     // 2. Build FormData (Required for sending files)
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
     formData.append('price', price);
+    // price appended twice in original code, removing duplicate
+    // formData.append('price', price); 
     formData.append('category', category);
+    formData.append('isCustomizable', String(isCustomizable));
     
-    // Construct sizes array of objects: [{ size: 'S', stock: 10 }, ...]
-    const sizesArray = validSizes.map(size => ({
-        size: size,
-        stock: Number(sizeStock[size])
-    }));
-
-    formData.append('sizes', JSON.stringify(sizesArray));
+    formData.append('sizes', JSON.stringify(sizes));
     
     // Default Color
     formData.append('colors', JSON.stringify([{ name: 'Standard', hex: '#000000' }]));
@@ -161,9 +172,23 @@ const AddProduct = () => {
                             className="w-full border border-border px-4 py-3 font-body text-sm outline-none focus:border-foreground transition-colors bg-white"
                         >
                             <option value="">Select Category</option>
-                            <option value="men">Men</option>
-                            <option value="women">Women</option>
+                            <option value="Standard Tees">Standard Tees</option>
+                            <option value="Custom Tees">Custom Tees</option>
+                            <option value="Blankets">Blankets</option>
                         </select>
+                    </div>
+                    {/* Customizable Checkbox */}
+                    <div className="flex items-center gap-2 mt-4 col-span-2">
+                        <input
+                            type="checkbox"
+                            checked={isCustomizable}
+                            onChange={(e) => setIsCustomizable(e.target.checked)}
+                            className="w-4 h-4 accent-foreground"
+                            id="customizable"
+                        />
+                        <label htmlFor="customizable" className="text-sm font-medium cursor-pointer">
+                            Is this product customizable? (e.g. T-Shirts with custom text)
+                        </label>
                     </div>
                 </div>
              </div>
@@ -173,29 +198,61 @@ const AddProduct = () => {
              <h3 className="font-serif text-lg mb-4">Inventory</h3>
              <p className="text-sm text-muted-foreground mb-4">Select available sizes and enter stock quantity.</p>
              
-             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {Object.keys(activeSizes).map((size) => (
-                    <div key={size} className={`border p-3 transition-colors ${activeSizes[size] ? 'border-foreground bg-secondary/20' : 'border-border'}`}>
-                        <label className="flex items-center gap-2 mb-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={activeSizes[size]}
-                                onChange={() => setActiveSizes({ ...activeSizes, [size]: !activeSizes[size] })}
-                                className="accent-foreground w-4 h-4"
-                            />
-                            <span className="font-serif font-bold">{size}</span>
-                        </label>
-                        {activeSizes[size] && (
-                            <input
-                                type="number"
-                                placeholder="Qty"
-                                value={sizeStock[size]}
-                                onChange={(e) => setSizeStock({ ...sizeStock, [size]: e.target.value })}
-                                className="w-full border-b border-muted-foreground bg-transparent py-1 text-sm outline-none focus:border-foreground"
-                            />
-                        )}
+             <div className="space-y-4">
+                {/* Input Row */}
+                <div className="flex gap-2 items-end">
+                    <div className="flex-1">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Size Name</label>
+                        <input
+                            value={newSize}
+                            onChange={(e) => setNewSize(e.target.value)}
+                            placeholder="e.g. S, XL, King Size"
+                            className="w-full border border-border px-3 py-2 text-sm outline-none focus:border-foreground"
+                            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSize())}
+                        />
                     </div>
-                ))}
+                    <div className="w-24">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 block">Stock</label>
+                        <input
+                            type="number"
+                            value={newStock}
+                            onChange={(e) => setNewStock(e.target.value)}
+                            placeholder="Qty"
+                            className="w-full border border-border px-3 py-2 text-sm outline-none focus:border-foreground"
+                            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSize())}
+                        />
+                    </div>
+                    <button 
+                        type="button"
+                        onClick={handleAddSize}
+                        className="bg-black text-white px-4 py-2 text-sm font-medium hover:bg-gray-800 transition-colors h-[38px]"
+                    >
+                        Add
+                    </button>
+                </div>
+
+                {/* Sizes List */}
+                {sizes.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
+                        {sizes.map((s, idx) => (
+                            <div key={idx} className="flex justify-between items-center bg-gray-50 border border-gray-100 p-2 rounded-sm group">
+                                <div>
+                                    <span className="font-bold text-sm block">{s.size}</span>
+                                    <span className="text-xs text-muted-foreground">Stock: {s.stock}</span>
+                                </div>
+                                <button 
+                                    type="button" 
+                                    onClick={() => handleRemoveSize(idx)}
+                                    className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                    <X size={14} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-sm text-gray-400 italic">No sizes added yet.</p>
+                )}
              </div>
           </div>
         </div>

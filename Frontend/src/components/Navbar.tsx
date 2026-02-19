@@ -104,10 +104,9 @@ const Navbar = () => {
   }, [user, dispatch]);
 
   const navLinks = [
-    { to: "/", label: "Home" },
-    { to: "/shop", label: "Shop" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
+    { to: "/shop", label: "Shop All" },
+    { to: "/shop?category=Blankets", label: "Premium Blankets" },
+    { to: "/shop?category=Custom Tees", label: "Custom Tees" },
   ];
 
   const handleLogout = () => {
