@@ -233,7 +233,7 @@ const AuthModal = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="w-full bg-foreground text-background py-4 luxury-button hover:bg-black/80 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center mt-8 group rounded-sm shadow-lg"
+                    className="w-full bg-primary text-white py-4 luxury-button hover:bg-primary/90 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center mt-8 group rounded-full shadow-lg"
                   >
                     {isLoading ? (
                       <span className="animate-pulse">Processing...</span>

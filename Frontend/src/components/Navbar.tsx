@@ -122,7 +122,7 @@ const Navbar = () => {
         // UPDATED: Added duration-500 and ease-in-out for smooth sliding
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b border-transparent 
         ${isVisible ? "translate-y-0" : "-translate-y-full"} 
-        ${scrolled ? "bg-background/80 backdrop-blur-md shadow-sm border-border/40" : "bg-transparent"}`}
+        ${scrolled ? "bg-background/80 backdrop-blur-md border-b border-secondary/30" : "bg-transparent"}`}
       >
         {/* --- ROTATING ANNOUNCEMENT BAR --- */}
         <div className="w-full bg-black py-2.5 overflow-hidden relative border-b border-gray-800">
@@ -165,14 +165,12 @@ const Navbar = () => {
           </button>
 
           {/* Logo */}
+          {/* Logo */}
           <Link
             to="/"
-            className="font-serif text-2xl lg:text-3xl tracking-[0.1em] font-bold z-50 mr-8 lg:mr-12"
+            className="z-50 mr-8 lg:mr-12"
           >
-            LoveInFabric
-            <span className="text-[10px] align-top ml-0.5 tracking-normal font-sans font-light">
-              ®
-            </span>
+            <span className='font-serif text-2xl tracking-wide text-foreground'>LoveInFabric</span>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -181,10 +179,10 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className="group relative text-xs tracking-[0.15em] font-medium uppercase text-foreground/70 hover:text-foreground transition-colors font-sans"
+                className="group relative text-xs tracking-[0.15em] font-medium uppercase text-foreground/70 hover:text-primary transition-colors font-sans"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </nav>
@@ -196,14 +194,14 @@ const Navbar = () => {
             {/* Track Order */}
             <Link
               to="/orders"
-              className="hidden xl:flex items-center gap-2 group text-muted-foreground hover:text-foreground transition-colors mr-2"
+              className="hidden xl:flex items-center gap-2 group text-muted-foreground hover:text-primary transition-colors mr-2"
             >
               <Package
                 size={16}
                 strokeWidth={1.5}
-                className="group-hover:text-black transition-colors"
+                className="group-hover:text-primary transition-colors"
               />
-              <span className="font-sans text-[10px] uppercase tracking-[0.2em] font-medium text-gray-500 group-hover:text-black">
+              <span className="font-sans text-[10px] uppercase tracking-[0.2em] font-medium text-gray-500 group-hover:text-primary">
                 Track Order
               </span>
             </Link>
@@ -238,7 +236,7 @@ const Navbar = () => {
                 className="pl-10 pr-10 py-2 w-full text-sm bg-transparent border-none focus:ring-0 outline-none placeholder:text-muted-foreground/90 font-sans font-light tracking-wide placeholder:tracking-normal"
               />
               <button
-                className={`absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-opacity ${searchQuery ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                className={`absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-primary transition-opacity ${searchQuery ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
               >
@@ -258,7 +256,7 @@ const Navbar = () => {
             <Link
               to="/wishlist"
               aria-label="Wishlist"
-              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-foreground"
+              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-primary"
             >
               <Heart size={20} strokeWidth={1.5} />
               {totalWishlist > 0 && (
@@ -283,7 +281,7 @@ const Navbar = () => {
                   }
                 }}
                 aria-label="Profile"
-                className="hover:scale-110 transition-transform duration-300 flex items-center gap-2 py-2 text-foreground/80 hover:text-foreground"
+                className="hover:scale-110 transition-transform duration-300 flex items-center gap-2 py-2 text-foreground/80 hover:text-primary"
               >
                 <User size={20} strokeWidth={1.5} />
               </button>
@@ -379,10 +377,10 @@ const Navbar = () => {
             </div>
 
             {/* Cart */}
-            <button
+              <button
               onClick={() => dispatch(openCart())}
               aria-label="Cart"
-              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-foreground"
+              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-primary"
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
               {totalItems > 0 && (

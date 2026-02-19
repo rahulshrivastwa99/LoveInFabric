@@ -4,75 +4,95 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 20%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
-    --radius: 0.125rem;
-    --sidebar-background: 0 0% 2%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 0 0% 100%;
+    /* Background: Soft Blush Pink from your image background */
+    --background: 350 30% 96%;
+    /* Foreground/Text: Deep warm brown instead of harsh black */
+    --foreground: 25 20% 25%;
 
-    --success: 142 72% 29%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 0%;
+    /* Primary: The Rose/Dusty Pink from the right side of the heart */
+    --primary: 350 35% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: The Warm Beige/Champagne from the left side of the heart */
+    --secondary: 35 25% 70%;
+    --secondary-foreground: 25 20% 25%;
+
+    /* Cards/Borders */
+    --card: 0 0% 100%;
+    --card-foreground: 25 20% 25%;
+    --border: 350 20% 85%;
+    --input: 350 20% 85%;
+
+    /* Muted text for descriptions */
+    --muted: 35 15% 50%;
+    --muted-foreground: 35 15% 40%;
+
+    --radius: 0.75rem;
+    /* Thoda aur rounded soft feel ke liye */
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Inter', sans-serif;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-serif;
+  /* ✨ Custom Highlight/Selection Color (Jab koi text select kare) ✨ */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
+
+  /* ✨ Beautiful Custom Scrollbar ✨ */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
   }
 }
 
-@layer utilities {
-  .luxury-heading {
-    @apply font-serif font-light tracking-wide;
-  }
+@layer components {
 
+  /* ✨ Upgraded Luxury Button ✨ */
   .luxury-button {
-    @apply uppercase tracking-[0.2em] text-xs font-body font-medium;
+    @apply relative overflow-hidden bg-primary text-white font-medium tracking-wide rounded-full shadow-md transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0 px-6 py-3;
   }
 
-  .image-zoom {
-    @apply transition-transform duration-700 ease-out;
+  /* Button Shine Effect on Hover */
+  .luxury-button::after {
+    content: '';
+    @apply absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-500 skew-x-[-20deg];
   }
 
-  .image-zoom:hover {
-    @apply scale-105;
+  .luxury-button:hover::after {
+    left: 100%;
+  }
+
+  /* ✨ Upgraded Luxury Input ✨ */
+  .luxury-input {
+    @apply w-full border border-border px-4 py-3 bg-white/60 backdrop-blur-sm focus:bg-white outline-none focus:border-primary transition-all duration-300 rounded-xl focus:ring-4 focus:ring-primary/10 shadow-sm hover:shadow-md;
+  }
+
+  /* ✨ Glassmorphism Panel (For Cards, Modals, Navbar) ✨ */
+  .glass-panel {
+    @apply bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl;
+    box-shadow: 0 8px 32px 0 rgba(180, 140, 140, 0.1);
+  }
+
+  /* ✨ Romantic Gradient Text ✨ */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[#d4a373] to-primary bg-[length:200%_auto] animate-gradient;
   }
 }

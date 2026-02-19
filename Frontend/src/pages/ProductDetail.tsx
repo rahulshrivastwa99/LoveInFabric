@@ -379,7 +379,7 @@ const ProductDetail = () => {
                     className="flex items-center justify-between w-full text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-md bg-purple-50 flex items-center justify-center text-purple-600">
+                      <div className="w-8 h-8 rounded-md bg-secondary/30 flex items-center justify-center text-foreground">
                         <FileText size={16} />
                       </div>
                       <div>
@@ -402,8 +402,8 @@ const ProductDetail = () => {
                         className="overflow-hidden"
                       >
                         <div className="pt-4 pl-11">
-                          <table className="w-full text-xs text-left border border-gray-200">
-                            <tbody className="divide-y divide-gray-200">
+                          <table className="w-full text-xs text-left border border-border/50">
+                            <tbody className="divide-y divide-border/50">
                               {[
                                 { label: "Made of", value: "100% Cotton" },
                                 { label: "Neck Type", value: "Round Neck" },
@@ -424,9 +424,9 @@ const ProductDetail = () => {
                               ].map((row, i) => (
                                 <tr
                                   key={i}
-                                  className="divide-x divide-gray-200"
+                                  className="divide-x divide-border/50"
                                 >
-                                  <td className="px-3 py-2 font-bold w-1/3 bg-gray-50">
+                                  <td className="px-3 py-2 font-bold w-1/3 bg-secondary/10">
                                     {row.label}
                                   </td>
                                   <td className="px-3 py-2 text-muted-foreground">
@@ -449,7 +449,7 @@ const ProductDetail = () => {
                     className="flex items-center justify-between w-full text-left group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-md bg-green-50 flex items-center justify-center text-green-600">
+                      <div className="w-8 h-8 rounded-md bg-secondary/30 flex items-center justify-center text-foreground">
                         <Truck size={16} />
                       </div>
                       <div>
@@ -493,7 +493,7 @@ const ProductDetail = () => {
                     {product.rating > 0 ? product.rating.toFixed(1) : "0.0"}
                   </span>
                   <div className="space-y-1">
-                    <Rating value={product.rating} color="#000000" />
+                    <Rating value={product.rating} color="hsl(var(--primary))" />
                     <p className="text-[10px] uppercase tracking-widest opacity-60">
                       Based on {product.numReviews} Reviews
                     </p>
@@ -506,7 +506,7 @@ const ProductDetail = () => {
                       <select
                         value={rating}
                         onChange={(e) => setRating(Number(e.target.value))}
-                        className="w-full p-2 border border-border rounded-md bg-transparent"
+                        className="w-full p-2 border border-border rounded-md bg-transparent focus:border-primary outline-none"
                       >
                         <option value="0">Select Rating...</option>
                         <option value="1">1 - Poor</option>
@@ -516,14 +516,14 @@ const ProductDetail = () => {
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         rows={3}
-                        className="w-full p-2 border border-border rounded-md bg-transparent text-sm"
+                        className="w-full p-2 border border-border rounded-md bg-transparent text-sm focus:border-primary outline-none"
                         placeholder="Your thoughts..."
                         required
                       />
                       <button
                         type="submit"
                         disabled={reviewStatus === "loading"}
-                        className="w-full bg-foreground text-background py-2 rounded-md text-sm font-medium hover:bg-foreground/90 transition-colors"
+                        className="w-full bg-primary text-white py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
                       >
                         {reviewStatus === "loading"
                           ? "Submitting..."
@@ -547,13 +547,13 @@ const ProductDetail = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold">{review.name}</span>
-                        <CheckCircle2 size={12} className="text-green-600" />
+                        <CheckCircle2 size={12} className="text-primary" />
                       </div>
                       <span className="text-xs text-muted-foreground">
                         {review.createdAt?.substring(0, 10)}
                       </span>
                     </div>
-                    <Rating value={review.rating} />
+                    <Rating value={review.rating} color="hsl(var(--primary))" />
                     <p className="text-sm font-medium leading-relaxed italic text-foreground/80">
                       "{review.comment}"
                     </p>
@@ -571,7 +571,7 @@ const ProductDetail = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center p-4"
+            className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4"
           >
             <button
               onClick={() => setIsLightboxOpen(false)}
@@ -579,13 +579,13 @@ const ProductDetail = () => {
             >
               <X size={32} />
             </button>
-            <div className="relative h-[75vh] w-full flex items-center justify-center">
+            <div className="relative h-[85vh] w-full flex items-center justify-center">
               <motion.img
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
                 src={productImages[selectedImage]}
                 crossOrigin="anonymous"
-                className="w-full h-full object-contain"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
             </div>
           </motion.div>
@@ -604,7 +604,7 @@ const ProductDetail = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-lg bg-background rounded-3xl p-8 shadow-2xl"
+              className="relative w-full max-w-lg bg-background rounded-3xl p-8 shadow-2xl border border-border"
             >
               <button
                 onClick={() => setShowSizeGuide(false)}

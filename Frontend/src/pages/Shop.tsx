@@ -83,15 +83,15 @@ const Shop = () => {
     <>
       <Navbar />
 
-      <main className="pt-24 lg:pt-32 min-h-screen bg-white">
+      <main className="pt-24 lg:pt-32 min-h-screen bg-background">
         <div className="container px-4 md:px-8 py-8 lg:py-12">
           {/* --- HEADER --- */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 border-b border-gray-100 pb-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 border-b border-border pb-6">
             <div>
-              <h1 className="font-serif text-4xl md:text-5xl text-black mb-2">
+              <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-2">
                 Collection
               </h1>
-              <p className="text-gray-500 font-sans text-sm tracking-wide">
+              <p className="text-muted-foreground font-sans text-sm tracking-wide">
                 {status === "loading"
                   ? "Updating..."
                   : `${products.length} Items Found`}
@@ -101,7 +101,7 @@ const Shop = () => {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setMobileFilters(true)}
-              className="lg:hidden flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] border border-black px-6 py-3 mt-4 w-full md:w-auto justify-center hover:bg-black hover:text-white transition-colors"
+              className="lg:hidden flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] border border-border px-6 py-3 mt-4 w-full md:w-auto justify-center hover:bg-primary hover:text-white transition-colors rounded-md"
             >
               <SlidersHorizontal size={14} /> Filter
             </button>
@@ -133,15 +133,15 @@ const Shop = () => {
                   {[1, 2, 3, 4, 5, 6].map((i) => (
                     <div
                       key={i}
-                      className="aspect-[3/4] bg-gray-100 animate-pulse"
+                      className="aspect-[3/4] bg-secondary/20 animate-pulse rounded-md"
                     />
                   ))}
                 </div>
               ) : (
                 <>
                   {products.length === 0 ? (
-                    <div className="text-center py-20 border border-dashed border-gray-200 rounded-lg">
-                      <p className="font-sans text-gray-500 mb-4">
+                    <div className="text-center py-20 border border-dashed border-border rounded-lg bg-secondary/10">
+                      <p className="font-sans text-muted-foreground mb-4">
                         No products match your filters.
                       </p>
                       <button
@@ -152,7 +152,7 @@ const Shop = () => {
                           setMaxPrice("");
                           setSize("");
                         }}
-                        className="text-xs font-bold uppercase tracking-widest border-b border-black pb-1 hover:text-gray-600 hover:border-gray-600"
+                        className="text-xs font-bold uppercase tracking-widest border-b border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"
                       >
                         Clear Filters
                       </button>
@@ -169,11 +169,11 @@ const Shop = () => {
 
               {/* --- PAGINATION --- */}
               {pages > 1 && (
-                <div className="flex justify-center mt-16 gap-2">
+                <div className="flex justify-center mt-16 gap-3">
                   <button
                     disabled={page === 1}
                     onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
-                    className="p-2 border border-gray-200 hover:border-black disabled:opacity-30 disabled:hover:border-gray-200 transition-colors"
+                    className="w-10 h-10 flex items-center justify-center border border-border rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
                   >
                     <ChevronLeft size={16} />
                   </button>
@@ -181,10 +181,10 @@ const Shop = () => {
                     <button
                       key={x + 1}
                       onClick={() => setPageNumber(x + 1)}
-                      className={`w-8 h-8 flex items-center justify-center text-xs font-bold transition-colors ${
+                      className={`w-10 h-10 flex items-center justify-center rounded-full text-xs font-bold transition-all ${
                         page === x + 1
-                          ? "bg-black text-white"
-                          : "border border-gray-200 hover:border-black"
+                          ? "bg-primary text-white shadow-lg scale-110"
+                          : "bg-transparent text-muted-foreground hover:bg-secondary border border-transparent hover:border-border"
                       }`}
                     >
                       {x + 1}
@@ -193,7 +193,7 @@ const Shop = () => {
                   <button
                     disabled={page === pages}
                     onClick={() => setPageNumber((p) => Math.min(pages, p + 1))}
-                    className="p-2 border border-gray-200 hover:border-black disabled:opacity-30 disabled:hover:border-gray-200 transition-colors"
+                    className="w-10 h-10 flex items-center justify-center border border-border rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
                   >
                     <ChevronRight size={16} />
                   </button>
@@ -219,15 +219,15 @@ const Shop = () => {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed right-0 top-0 bottom-0 z-[100] w-[85%] max-w-sm bg-white shadow-2xl h-full flex flex-col"
+                className="fixed right-0 top-0 bottom-0 z-[100] w-[85%] max-w-sm bg-background shadow-2xl h-full flex flex-col border-l border-border"
               >
-                <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-white">
-                  <span className="font-serif text-xl tracking-tight">
+                <div className="p-6 border-b border-border flex items-center justify-between bg-background">
+                  <span className="font-serif text-xl tracking-tight text-foreground">
                     Filters
                   </span>
                   <button
                     onClick={() => setMobileFilters(false)}
-                    className="hover:rotate-90 transition-transform"
+                    className="hover:rotate-90 transition-transform text-muted-foreground hover:text-foreground"
                   >
                     <X size={24} />
                   </button>
@@ -248,10 +248,10 @@ const Shop = () => {
                   />
                 </div>
 
-                <div className="p-6 border-t border-gray-100 bg-white">
+                <div className="p-6 border-t border-border bg-background">
                   <button
                     onClick={() => setMobileFilters(false)}
-                    className="w-full bg-black text-white py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-gray-900 transition-colors"
+                    className="w-full bg-primary text-white py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-primary/90 transition-colors rounded-sm shadow-md"
                   >
                     Apply Filters
                   </button>

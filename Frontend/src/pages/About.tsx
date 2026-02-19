@@ -17,30 +17,30 @@ const About = () => {
   return (
     <>
       <div
-        className={`fixed top-0 z-50 w-full transition-colors duration-300 ${isAtTop ? "bg-white/90 backdrop-blur-md border-b border-gray-100" : "bg-transparent"}`}
+        className={`fixed top-0 z-50 w-full transition-colors duration-300 ${isAtTop ? "bg-background/80 backdrop-blur-md border-b border-border" : "bg-transparent"}`}
       >
         <Navbar />
       </div>
       <CartDrawer />
       <AuthModal />
 
-      <main className="min-h-screen bg-white pt-32 px-4 md:px-8 pb-20">
+      <main className="min-h-screen bg-background pt-32 px-4 md:px-8 pb-20">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-16"
           >
-            <h1 className="font-serif text-5xl text-black leading-tight mb-4">
+            <h1 className="font-serif text-5xl text-foreground leading-tight mb-4">
               LoveInFabric: Where Your Weird is Your Superpower
             </h1>
-            <p className="text-xl text-gray-500 font-serif leading-relaxed italic">
+            <p className="text-xl text-muted-foreground font-serif leading-relaxed italic">
               "We're not about fitting in. We're about owning your crazy, loud,
               unapologetically you."
             </p>
           </motion.div>
 
-          <div className="space-y-12 text-gray-700 leading-relaxed">
+          <div className="space-y-12 text-foreground/80 leading-relaxed">
             <p className="text-lg">
               Every blank wall's a canvas, every hallway a runway. LoveInFabric is your
               antidote to the mundane. We're streetwear for the next generation,
@@ -49,8 +49,8 @@ const About = () => {
               world, redefining cool with every eccentric move.
             </p>
 
-            <section className="bg-gray-50 p-10 rounded-2xl border border-gray-100">
-              <h3 className="font-serif text-2xl text-black mb-4">
+            <section className="bg-secondary/10 p-10 rounded-2xl border border-border">
+              <h3 className="font-serif text-2xl text-foreground mb-4">
                 The LoveInFabric Motto
               </h3>
               <p className="italic">"Be you. Be LoveInFabric."</p>
@@ -64,19 +64,19 @@ const About = () => {
             </section>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="border-l-4 border-black pl-6">
-                <h4 className="font-bold uppercase text-xs tracking-widest text-gray-400 mb-2">
+              <div className="border-l-4 border-foreground pl-6">
+                <h4 className="font-bold uppercase text-xs tracking-widest text-muted-foreground mb-2">
                   Our Reach
                 </h4>
-                <p className="text-xl font-serif text-black">
+                <p className="text-xl font-serif text-foreground">
                   Serving the entire nation from our Delhi headquarters.
                 </p>
               </div>
-              <div className="border-l-4 border-black pl-6">
-                <h4 className="font-bold uppercase text-xs tracking-widest text-gray-400 mb-2">
+              <div className="border-l-4 border-foreground pl-6">
+                <h4 className="font-bold uppercase text-xs tracking-widest text-muted-foreground mb-2">
                   Our Goal
                 </h4>
-                <p className="text-xl font-serif text-black">
+                <p className="text-xl font-serif text-foreground">
                   Providing unparalleled prints and out-of-the-ordinary styles.
                 </p>
               </div>
