@@ -13,6 +13,7 @@ import {
   Sparkles,
   ShieldCheck,
   Tag,
+  Mic,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppSelector, useAppDispatch } from "@/store";
@@ -22,13 +23,22 @@ import { openAuthModal, initiateLogout } from "@/store/authSlice";
 import SearchDrawer from "./SearchDrawer";
 import AuthModal from "./AuthModal";
 
+// Mega Menu Imports
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // State for Scroll Behavior
   const [scrolled, setScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -37,55 +47,39 @@ const Navbar = () => {
 
   const announcements = [
     {
-      text: "FREE SHIPPING ON ORDERS ABOVE ₹4999",
-      icon: <Truck size={13} className="text-emerald-400" />,
+      text: "Get Upto 15% Cashback via Scratch Card on transaction via MobiKwik UPI with MOV as ₹1499/-. T&C Apply*.",
     },
     {
-      text: "GET FLAT ₹100 OFF ON YOUR FIRST PURCHASE | USE CODE: MRFIRST. *T&C APPLY.",
-      icon: <Sparkles size={13} className="text-emerald-400" />,
+      text: "Get up to ₹250 cashback on payment via Mobikwik wallet over Rs. 999. T&C Apply*.",
     },
     {
-      text: "LoveInFabric'S OFFICIAL WEBSITE – ORDER ONLY HERE",
-      icon: <ShieldCheck size={13} className="text-emerald-400" />,
-    },
-    {
-      text: "NEW COLLECTION NOW AVAILABLE",
-      icon: <Tag size={13} className="text-emerald-400" />,
+      text: "Get 10% Cashback on Minimum transaction value of ₹999 on your payment via MobiKwik UPI. T&C Apply*.",
     },
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentAnnouncement((prev) => (prev + 1) % announcements.length);
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, []);
-  // ---------------------------
 
   // --- SCROLL LOGIC ---
   useEffect(() => {
     let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // Determine visibility (Hide on down scroll, show on up scroll)
       if (currentScrollY < lastScrollY || currentScrollY < 10) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
-
-      // Determine background style
       setScrolled(currentScrollY > 50);
-
       lastScrollY = currentScrollY;
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // ---------------------------
 
   const cartItems = useAppSelector((s) => s.cart.items);
   const wishlistItems = useAppSelector((s) => s.wishlist.items);
@@ -114,176 +108,143 @@ const Navbar = () => {
     setProfileOpen(false);
   };
 
+  // --- DYNAMIC COLORS BASED ON SCROLL STATE ---
+  const textColorClass = scrolled
+    ? "text-foreground"
+    : "text-white drop-shadow-sm";
+  const iconColorClass = scrolled
+    ? "text-foreground/80 hover:text-foreground"
+    : "text-white/90 hover:text-white drop-shadow-sm";
+
+  // CHANGED: Set Search Bar to exactly 0.3 transparency (bg-white/30) when at the top
+  const searchBarBg = scrolled
+    ? "bg-secondary/30 border-border/60 focus-within:bg-background focus-within:border-foreground/50"
+    : "bg-white/30 border-white/30 focus-within:bg-white/40 focus-within:border-white/70 backdrop-blur-md shadow-sm";
+
+  const searchIconColor = scrolled ? "text-muted-foreground" : "text-white/90";
+  const searchPlaceholderColor = scrolled
+    ? "placeholder:text-muted-foreground"
+    : "placeholder:text-white/80";
+
   return (
     <>
       <AuthModal />
 
       <header
-        // UPDATED: Added duration-500 and ease-in-out for smooth sliding
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b border-transparent 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b
         ${isVisible ? "translate-y-0" : "-translate-y-full"} 
-        ${scrolled ? "bg-background/80 backdrop-blur-md border-b border-secondary/30" : "bg-transparent"}`}
+        ${scrolled ? "bg-background/95 backdrop-blur-md shadow-md border-border/40" : "bg-transparent border-transparent"}`}
       >
         {/* --- ROTATING ANNOUNCEMENT BAR --- */}
-        <div className="w-full bg-black py-2.5 overflow-hidden relative border-b border-gray-800">
+        <div className="w-full bg-[#FAF9F6] py-2 overflow-hidden relative border-b border-stone-200">
           <div className="container flex items-center justify-center h-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentAnnouncement}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center gap-3 absolute w-full justify-center px-4"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="flex items-center absolute w-full justify-center px-4"
               >
-                <span className="flex-shrink-0">
-                  {announcements[currentAnnouncement].icon}
-                </span>
-                <span className="text-white font-sans text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-medium text-center truncate">
+                <span className="text-stone-800 font-sans text-[10px] md:text-[11px] uppercase tracking-wider font-semibold text-center truncate">
                   {announcements[currentAnnouncement].text}
                 </span>
               </motion.div>
             </AnimatePresence>
-
-            {/* Invisible spacer */}
-            <div className="opacity-0 flex items-center gap-2 py-0.5">
-              <span className="text-[11px]">Placeholder</span>
-            </div>
           </div>
         </div>
 
-        <div
-          className={`container flex items-center h-16 lg:h-20 transition-all duration-500`}
-        >
-          {/* Mobile Menu Button */}
+        {/* ======================================= */}
+        {/* TIER 1: LOGO, BIG SEARCH BAR, & ICONS   */}
+        {/* ======================================= */}
+        <div className="container flex items-center justify-between py-4 lg:py-6 gap-8 transition-all duration-300">
           <button
-            className="lg:hidden p-2 -ml-2 mr-2"
+            className={`lg:hidden p-2 -ml-2 mr-2 ${textColorClass}`}
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
-            <Menu size={24} strokeWidth={1.5} />
+            <Menu size={28} strokeWidth={1.5} />
           </button>
 
-          {/* Logo */}
-          {/* Logo */}
           <Link
             to="/"
-            className="z-50 mr-8 lg:mr-12"
+            className={`font-serif text-2xl lg:text-4xl tracking-[0.1em] font-bold z-50 flex-shrink-0 transition-colors duration-300 ${textColorClass}`}
           >
-            <span className='font-serif text-2xl tracking-wide text-foreground'>LoveInFabric</span>
+            LoveInFabric
+            <span className="text-xs align-top ml-0.5 tracking-normal font-sans font-light">
+              ®
+            </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="group relative text-xs tracking-[0.15em] font-medium uppercase text-foreground/70 hover:text-primary transition-colors font-sans"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex-1"></div>
-
-          {/* Right Section */}
-          <div className="flex items-center gap-4 lg:gap-6">
-            {/* Track Order */}
-            <Link
-              to="/orders"
-              className="hidden xl:flex items-center gap-2 group text-muted-foreground hover:text-primary transition-colors mr-2"
-            >
-              <Package
-                size={16}
-                strokeWidth={1.5}
-                className="group-hover:text-primary transition-colors"
-              />
-              <span className="font-sans text-[10px] uppercase tracking-[0.2em] font-medium text-gray-500 group-hover:text-primary">
-                Track Order
-              </span>
-            </Link>
-
-            {/* Search Bar */}
-            <div className="hidden lg:flex items-center relative group/search w-64 bg-secondary/30 hover:bg-secondary/50 focus-within:bg-background border border-transparent focus-within:border-border rounded-full transition-all duration-300">
-              <Search
-                size={16}
-                strokeWidth={1.5}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within/search:text-foreground transition-colors"
-                onClick={() => {
-                  if (searchQuery.trim()) {
-                    navigate(
-                      `/shop?keyword=${encodeURIComponent(searchQuery.trim())}`,
-                    );
-                  }
-                }}
-                style={{ cursor: "pointer" }}
-              />
-              <input
-                type="text"
-                placeholder="Search LoveInFabric"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && searchQuery.trim()) {
-                    navigate(
-                      `/shop?keyword=${encodeURIComponent(searchQuery.trim())}`,
-                    );
-                  }
-                }}
-                className="pl-10 pr-10 py-2 w-full text-sm bg-transparent border-none focus:ring-0 outline-none placeholder:text-muted-foreground/90 font-sans font-light tracking-wide placeholder:tracking-normal"
-              />
+          <div
+            className={`hidden lg:flex flex-1 max-w-3xl relative border rounded-sm transition-all duration-300 ${searchBarBg}`}
+          >
+            <Search
+              size={20}
+              strokeWidth={1.5}
+              className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${searchIconColor}`}
+            />
+            <input
+              type="text"
+              placeholder="Search LoveInFabric"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && searchQuery.trim()) {
+                  navigate(
+                    `/shop?keyword=${encodeURIComponent(searchQuery.trim())}`,
+                  );
+                }
+              }}
+              className={`w-full pl-12 pr-12 py-3 bg-transparent border-none outline-none text-sm font-sans tracking-wide transition-colors duration-300 ${textColorClass} ${searchPlaceholderColor}`}
+            />
+            {searchQuery ? (
               <button
-                className={`absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-primary transition-opacity ${searchQuery ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${iconColorClass}`}
                 onClick={() => setSearchQuery("")}
-                aria-label="Clear search"
               >
-                <X size={14} strokeWidth={1.5} />
+                <X size={18} strokeWidth={1.5} />
               </button>
-            </div>
+            ) : (
+              <Mic
+                size={20}
+                strokeWidth={1.5}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer transition-colors duration-300 ${iconColorClass}`}
+              />
+            )}
+          </div>
 
-            {/* Mobile Search Icon */}
+          <div className="flex-1 lg:hidden"></div>
+
+          <div className="flex items-center gap-6 lg:gap-8 flex-shrink-0">
             <button
               onClick={() => setSearchOpen(true)}
-              className="lg:hidden hover:scale-110 transition-transform text-foreground/80"
+              className={`lg:hidden hover:scale-110 transition-transform ${textColorClass}`}
             >
-              <Search size={20} strokeWidth={1.5} />
+              <Search size={24} strokeWidth={1.5} />
             </button>
 
-            {/* Wishlist */}
-            <Link
-              to="/wishlist"
-              aria-label="Wishlist"
-              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-primary"
-            >
-              <Heart size={20} strokeWidth={1.5} />
-              {totalWishlist > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-black text-white text-[9px] flex items-center justify-center font-medium rounded-full">
-                  {totalWishlist}
-                </span>
-              )}
-            </Link>
-
-            {/* Profile Dropdown */}
             <div
-              className="relative"
+              className="relative hidden lg:block"
               onMouseEnter={() => setProfileOpen(true)}
               onMouseLeave={() => setProfileOpen(false)}
             >
               <button
                 onClick={() => {
-                  if (!user) {
-                    dispatch(openAuthModal({ mode: "login" }));
-                  } else {
-                    navigate("/profile");
-                  }
+                  if (!user) dispatch(openAuthModal({ mode: "login" }));
+                  else navigate("/profile");
                 }}
-                aria-label="Profile"
-                className="hover:scale-110 transition-transform duration-300 flex items-center gap-2 py-2 text-foreground/80 hover:text-primary"
+                className={`flex flex-col items-center gap-1.5 group transition-colors duration-300 ${iconColorClass}`}
               >
-                <User size={20} strokeWidth={1.5} />
+                <User
+                  size={24}
+                  strokeWidth={1.2}
+                  className="group-hover:scale-110 transition-transform"
+                />
+                <span className="text-[11px] font-medium font-sans tracking-wide">
+                  Account
+                </span>
               </button>
 
               <AnimatePresence>
@@ -293,102 +254,303 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute right-0 top-full mt-2 w-64 bg-background/95 backdrop-blur-xl border border-border shadow-2xl z-50 p-2 rounded-sm"
+                    className="absolute right-1/2 translate-x-1/2 top-full pt-4 w-64 z-50"
                   >
-                    {user ? (
-                      <>
-                        <div className="px-5 py-4 border-b border-border/50 bg-secondary/20 mb-2">
-                          <p className="font-medium text-sm truncate text-foreground tracking-wide font-sans">
-                            {user.name}
-                          </p>
-                          <p className="text-[10px] text-muted-foreground truncate uppercase tracking-wider mt-1 font-sans">
-                            {user.email}
-                          </p>
-                        </div>
-
-                        <div className="space-y-1">
-                          <Link
-                            to="/profile"
-                            className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-secondary/50 transition-colors rounded-sm font-sans"
-                            onClick={() => setProfileOpen(false)}
-                          >
-                            My Profile
-                          </Link>
-                          <Link
-                            to="/orders"
-                            className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-secondary/50 transition-colors rounded-sm font-sans"
-                            onClick={() => setProfileOpen(false)}
-                          >
-                            My Orders
-                          </Link>
-                          {user.isAdmin && (
+                    {/* CHANGED: Profile Sub-box now uses 0.3 transparency with blur */}
+                    <div className="bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl p-2 rounded-sm text-foreground">
+                      {user ? (
+                        <>
+                          <div className="px-5 py-4 border-b border-border/50 bg-white/40 mb-2 rounded-sm">
+                            <p className="font-medium text-sm truncate text-foreground tracking-wide font-sans">
+                              {user.name}
+                            </p>
+                            <p className="text-[10px] text-stone-800 truncate uppercase tracking-wider mt-1 font-sans">
+                              {user.email}
+                            </p>
+                          </div>
+                          <div className="space-y-1">
                             <Link
-                              to="/admin/dashboard"
-                              className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-secondary/50 transition-colors rounded-sm text-foreground font-sans"
+                              to="/profile"
+                              className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-white/50 rounded-sm font-sans"
                               onClick={() => setProfileOpen(false)}
                             >
-                              Admin Dashboard
+                              My Profile
                             </Link>
-                          )}
+                            <Link
+                              to="/orders"
+                              className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-white/50 rounded-sm font-sans"
+                              onClick={() => setProfileOpen(false)}
+                            >
+                              My Orders
+                            </Link>
+                            {user.isAdmin && (
+                              <Link
+                                to="/admin/dashboard"
+                                className="block px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-white/50 rounded-sm font-sans"
+                                onClick={() => setProfileOpen(false)}
+                              >
+                                Admin Dashboard
+                              </Link>
+                            )}
+                          </div>
+                          <div className="border-t border-border/50 mt-2 pt-2">
+                            <button
+                              onClick={handleLogout}
+                              className="w-full text-left px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-red-50 text-red-600 flex items-center gap-2 rounded-sm font-sans"
+                            >
+                              <LogOut size={12} /> Sign Out
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="p-5 text-center">
+                          <h3 className="text-sm font-serif mb-1 tracking-wide text-foreground">
+                            WELCOME
+                          </h3>
+                          <p className="text-[10px] text-stone-800 mb-4 leading-relaxed font-sans">
+                            Join our community for exclusive access.
+                          </p>
+                          <div className="space-y-2">
+                            <button
+                              onClick={() => {
+                                dispatch(openAuthModal({ mode: "login" }));
+                                setProfileOpen(false);
+                              }}
+                              className="w-full bg-black text-white text-[10px] font-bold uppercase py-2.5 tracking-[0.2em] font-sans"
+                            >
+                              Login
+                            </button>
+                            <button
+                              onClick={() => {
+                                dispatch(openAuthModal({ mode: "signup" }));
+                                setProfileOpen(false);
+                              }}
+                              className="w-full border border-black text-black text-[10px] font-bold uppercase py-2.5 tracking-[0.2em] font-sans"
+                            >
+                              Sign Up
+                            </button>
+                          </div>
                         </div>
-
-                        <div className="border-t border-border/50 mt-2 pt-2">
-                          <button
-                            onClick={handleLogout}
-                            className="w-full text-left px-4 py-2 text-xs font-medium uppercase tracking-wider hover:bg-red-50 text-red-500 transition-colors flex items-center gap-2 rounded-sm font-sans"
-                          >
-                            <LogOut size={12} /> Sign Out
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="p-5 text-center">
-                        <h3 className="text-sm font-serif mb-1 tracking-wide">
-                          WELCOME TO LoveInFabric
-                        </h3>
-                        <p className="text-[10px] text-muted-foreground mb-4 leading-relaxed font-sans">
-                          Join our community for exclusive access and rewards.
-                        </p>
-                        <div className="space-y-2">
-                          <button
-                            onClick={() => {
-                              dispatch(openAuthModal({ mode: "login" }));
-                              setProfileOpen(false);
-                            }}
-                            className="w-full bg-black text-white text-[10px] font-bold uppercase py-2.5 hover:bg-gray-900 transition-all tracking-[0.2em] font-sans"
-                          >
-                            Login
-                          </button>
-                          <button
-                            onClick={() => {
-                              dispatch(openAuthModal({ mode: "signup" }));
-                              setProfileOpen(false);
-                            }}
-                            className="w-full border border-black text-black text-[10px] font-bold uppercase py-2.5 hover:bg-secondary transition-all tracking-[0.2em] font-sans"
-                          >
-                            Sign Up
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Cart */}
-              <button
-              onClick={() => dispatch(openCart())}
-              aria-label="Cart"
-              className="relative hover:scale-110 transition-transform duration-300 text-foreground/80 hover:text-primary"
+            <Link
+              to="/wishlist"
+              className={`flex flex-col items-center gap-1.5 relative group transition-colors duration-300 ${iconColorClass}`}
             >
-              <ShoppingBag size={20} strokeWidth={1.5} />
-              {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-foreground text-background text-[9px] flex items-center justify-center font-medium rounded-full">
-                  {totalItems}
-                </span>
-              )}
+              <div className="relative">
+                <Heart
+                  size={24}
+                  strokeWidth={1.2}
+                  className="group-hover:scale-110 transition-transform"
+                />
+                {totalWishlist > 0 && (
+                  <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-red-600 text-white text-[9px] flex items-center justify-center font-bold rounded-full border-2 border-background">
+                    {totalWishlist}
+                  </span>
+                )}
+              </div>
+              <span className="text-[11px] font-medium font-sans tracking-wide hidden lg:block">
+                Wishlist
+              </span>
+            </Link>
+
+            <button
+              onClick={() => dispatch(openCart())}
+              className={`flex flex-col items-center gap-1.5 relative group transition-colors duration-300 ${iconColorClass}`}
+            >
+              <div className="relative">
+                <ShoppingBag
+                  size={24}
+                  strokeWidth={1.2}
+                  className="group-hover:scale-110 transition-transform"
+                />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-red-600 text-white text-[9px] flex items-center justify-center font-bold rounded-full border-2 border-background">
+                    {totalItems}
+                  </span>
+                )}
+              </div>
+              <span className="text-[11px] font-medium font-sans tracking-wide hidden lg:block">
+                Cart
+              </span>
             </button>
+
+            <Link
+              to="/orders"
+              className={`flex flex-col items-center gap-1.5 group hidden xl:flex transition-colors duration-300 ${iconColorClass}`}
+            >
+              <Package
+                size={24}
+                strokeWidth={1.2}
+                className="group-hover:scale-110 transition-transform"
+              />
+              <span className="text-[11px] font-medium font-sans tracking-wide">
+                Track Order
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        {/* ======================================= */}
+        {/* TIER 2: MEGA NAVIGATION MENU            */}
+        {/* ======================================= */}
+        <div
+          className={`hidden lg:flex border-t relative z-40 transition-all duration-300 ${scrolled ? "border-border/40 bg-background" : "border-white/20 bg-transparent"}`}
+        >
+          <div className="container py-2">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-4">
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/shop"
+                      className={`group relative px-4 py-3 text-sm tracking-[0.15em] font-medium uppercase transition-colors font-sans ${scrolled ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white drop-shadow-sm"}`}
+                    >
+                      Shop All
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                {/* MEGA DROPDOWN: PREMIUM BLANKETS */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={`group relative px-4 py-3 text-sm tracking-[0.15em] font-medium uppercase transition-colors font-sans bg-transparent data-[state=open]:bg-transparent ${scrolled ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white drop-shadow-sm"}`}
+                  >
+                    Premium Blankets
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    {/* CHANGED: Mega Menu Sub-box is now 0.3 transparent with blur */}
+                    <div className="flex w-[900px] min-h-[420px] bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl rounded-b-sm text-foreground overflow-hidden">
+                      <div className="w-[35%] p-10 flex flex-col justify-start bg-white/50">
+                        <ul className="flex flex-col gap-6">
+                          <li>
+                            <Link
+                              to="/shop?category=Blankets&type=Fleece"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Luxury Fleece
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/shop?category=Blankets&type=Weighted"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Weighted Blankets
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/shop?category=Blankets&type=Knitted"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Chunky Knitted
+                            </Link>
+                          </li>
+                          <li className="pt-4 mt-2 border-t border-stone-300">
+                            <Link
+                              to="/shop?category=Blankets&type=All"
+                              className="text-sm font-bold text-black hover:opacity-70 transition-opacity font-sans block"
+                            >
+                              View All Blankets &rarr;
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="w-[65%] p-8 flex items-center justify-center">
+                        <div className="relative w-full h-[320px] rounded-md overflow-hidden group/image shadow-md">
+                          <img
+                            src="https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?q=80&w=600&auto=format&fit=crop"
+                            alt="Premium Blankets"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+                            <p className="text-white font-serif text-2xl mb-1 drop-shadow-md">
+                              The Winter Collection
+                            </p>
+                            <p className="text-white/90 text-sm font-sans tracking-wide">
+                              Wrap yourself in pure luxury.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* MEGA DROPDOWN: CUSTOM TEES */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={`group relative px-4 py-3 text-sm tracking-[0.15em] font-medium uppercase transition-colors font-sans bg-transparent data-[state=open]:bg-transparent ${scrolled ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white drop-shadow-sm"}`}
+                  >
+                    Custom Tees
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    {/* CHANGED: Mega Menu Sub-box is now 0.3 transparent with blur */}
+                    <div className="flex w-[900px] min-h-[420px] bg-white/30 backdrop-blur-xl border border-white/40 shadow-2xl rounded-b-sm text-foreground overflow-hidden">
+                      <div className="w-[35%] p-10 flex flex-col justify-start bg-white/50">
+                        <ul className="flex flex-col gap-6">
+                          <li>
+                            <Link
+                              to="/shop?category=Custom Tees&type=Men"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Men's Fits
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/shop?category=Custom Tees&type=Women"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Women's Fits
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/shop?category=Custom Tees&type=Oversized"
+                              className="text-sm font-semibold text-stone-800 hover:text-black transition-colors font-sans"
+                            >
+                              Oversized Collection
+                            </Link>
+                          </li>
+                          <li className="pt-4 mt-2 border-t border-stone-300">
+                            <Link
+                              to="/custom-design"
+                              className="text-sm font-bold text-blue-800 hover:opacity-70 transition-opacity font-sans block"
+                            >
+                              Design Your Own &rarr;
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="w-[65%] p-8 flex items-center justify-center">
+                        <div className="relative w-full h-[320px] rounded-md overflow-hidden group/image shadow-md">
+                          <img
+                            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=600&auto=format&fit=crop"
+                            alt="Custom Tees"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+                            <p className="text-white font-serif text-2xl mb-1 drop-shadow-md">
+                              Wear Your Story
+                            </p>
+                            <p className="text-white/90 text-sm font-sans tracking-wide">
+                              Premium customized fits.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
         </div>
 
@@ -398,7 +560,7 @@ const Navbar = () => {
         />
       </header>
 
-      {/* Mobile Menu */}
+      {/* --- Mobile Menu Drawer --- */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -415,7 +577,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="fixed top-0 left-0 bottom-0 z-[90] w-[85%] max-w-sm bg-background flex flex-col shadow-2xl border-r border-border"
+              className="fixed top-0 left-0 bottom-0 z-[90] w-[85%] max-w-sm bg-background flex flex-col shadow-2xl border-r border-border text-foreground"
             >
               <div className="flex items-center justify-between px-6 py-5 border-b border-border/50">
                 <span className="text-xl tracking-[0.2em] font-bold font-serif">
@@ -423,13 +585,11 @@ const Navbar = () => {
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  aria-label="Close menu"
                   className="p-2 -mr-2 text-muted-foreground hover:text-foreground hover:rotate-90 transition-all duration-300"
                 >
                   <X size={24} strokeWidth={1.5} />
                 </button>
               </div>
-
               <div className="flex-1 overflow-y-auto px-6 py-8">
                 <div className="flex flex-col gap-6">
                   {navLinks.map((link, i) => (
@@ -448,8 +608,6 @@ const Navbar = () => {
                       </Link>
                     </motion.div>
                   ))}
-
-                  {/* Wishlist & Track Order for Mobile */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -461,7 +619,7 @@ const Navbar = () => {
                       onClick={() => setMobileOpen(false)}
                       className="text-2xl font-light tracking-wide text-foreground/80 hover:text-foreground transition-colors uppercase block flex items-center gap-3 font-sans"
                     >
-                      Wishlist
+                      Wishlist{" "}
                       {totalWishlist > 0 && (
                         <span className="text-sm bg-foreground text-background px-2 py-0.5 rounded-full font-bold">
                           {totalWishlist}
@@ -477,9 +635,7 @@ const Navbar = () => {
                     </Link>
                   </motion.div>
                 </div>
-
                 <div className="w-10 h-px bg-border/50 my-8"></div>
-
                 {user ? (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -500,7 +656,6 @@ const Navbar = () => {
                         </p>
                       </div>
                     </div>
-
                     <Link
                       to="/profile"
                       onClick={() => setMobileOpen(false)}
@@ -524,7 +679,6 @@ const Navbar = () => {
                         Admin Dashboard
                       </Link>
                     )}
-
                     <button
                       onClick={() => {
                         handleLogout();
