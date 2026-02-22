@@ -25,7 +25,7 @@ interface AuthState {
 // Helper to load user from storage safely
 const loadUser = (): User | null => {
   try {
-    const saved = localStorage.getItem('LoveInFabric-user');
+    const saved = localStorage.getItem('The Lyyn-user');
     return saved ? JSON.parse(saved) : null;
   } catch {
     return null;
@@ -53,7 +53,7 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(`${BACKEND_URL}/api/auth/login`, userData);
 
       // Save to localStorage so they stay logged in on refresh
-      localStorage.setItem('LoveInFabric-user', JSON.stringify(response.data));
+      localStorage.setItem('The Lyyn-user', JSON.stringify(response.data));
       return response.data;
     } catch (error: any) {
       // Returns the error message from your backend (e.g., "Invalid email or password")
@@ -68,7 +68,7 @@ export const registerUser = createAsyncThunk(
   async (userData: any, thunkAPI) => {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/auth/register`, userData);
-      localStorage.setItem('LoveInFabric-user', JSON.stringify(response.data));
+      localStorage.setItem('The Lyyn-user', JSON.stringify(response.data));
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || 'Registration failed');
@@ -85,7 +85,7 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.error = null;
       state.isLoggingOut = false;
-      localStorage.removeItem('LoveInFabric-user');
+      localStorage.removeItem('The Lyyn-user');
     },
     initiateLogout(state) {
       state.isLoggingOut = true;

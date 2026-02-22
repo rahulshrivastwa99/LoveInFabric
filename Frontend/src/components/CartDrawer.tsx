@@ -1,9 +1,9 @@
 import { X, Minus, Plus, ShoppingBag, Truck, Banknote, RefreshCcw, ShieldCheck, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '@/store';
-import { closeCart, removeFromCart, updateQuantity, addToCart } from '@/store/cartSlice';
-import { openAuthModal } from '@/store/authSlice';
+import { useAppSelector, useAppDispatch } from '../store';
+import { closeCart, removeFromCart, updateQuantity, addToCart } from '../store/cartSlice';
+import { openAuthModal } from '../store/authSlice';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -59,7 +59,7 @@ const CartItem = ({ item }: { item: any }) => {
               quantity: currentSizeStock
           }));
       }
-  }, [product, currentSizeStock, item.quantity, item.productId, item.size, item.color, dispatch]);
+  }, [product, currentSizeStock, item.quantity, item.productId, item.size, item.color, item.customText, dispatch]);
 
 
   return (

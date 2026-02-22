@@ -16,7 +16,7 @@ const faqData = [
       },
       {
         q: "Can I cancel my order?",
-        a: "Orders can be cancelled within 24 hours of placement, provided they haven't been dispatched. Please email LoveInFabric.clothing15@gmail.com with your Order ID to request a cancellation.",
+        a: "Orders can be cancelled within 24 hours of placement, provided they haven't been dispatched. Please email The Lyyn.clothing15@gmail.com with your Order ID to request a cancellation.",
       },
       {
         q: "Can I change my delivery address after placing an order?",
@@ -100,7 +100,7 @@ const FAQ = () => {
               How can we help?
             </h1>
             <p className="text-gray-500 font-sans">
-              Find answers to frequently asked questions about LoveInFabricClothing.
+              Find answers to frequently asked questions about The LyynClothing.
             </p>
           </motion.div>
 
@@ -175,7 +175,7 @@ const FAQ = () => {
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <a
-                href="mailto:LoveInFabric.clothing15@gmail.com"
+                href="mailto:The Lyyn.clothing15@gmail.com"
                 className="bg-white text-black px-6 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition-colors"
               >
                 Email Us

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { addToCart, openCart } from "@/store/cartSlice";
-import { addToWishlist, removeFromWishlist } from "@/store/wishlistSlice";
+import { useAppDispatch, useAppSelector } from "../store";
+import { addToCart, openCart } from "../store/cartSlice";
+import { addToWishlist, removeFromWishlist } from "../store/wishlistSlice";
 import { Heart, Plus } from "lucide-react";
 import { toast } from "sonner";
-import { Product } from "@/types";
+import { Product } from "../types";
 
 interface ProductCardProps {
   product: Product;
@@ -50,18 +50,29 @@ const ProductCard = ({ product }: ProductCardProps) => {
       return;
     }
 
+    // Safely extract size and color depending on if they are strings or objects
+    const firstSize = product.sizes[0];
+    const defaultSize = typeof firstSize === 'object' ? firstSize.size : (firstSize || "One Size");
+
+    const firstColor = product.colors[0];
+    const defaultColor = typeof firstColor === 'string' ? firstColor : (firstColor?.name || "Standard");
+
     dispatch(
       addToCart({
         productId: product._id,
         name: product.name,
         price: product.price,
         quantity: 1,
-        // Default to first available options for Quick Add
-        size: product.sizes[0]?.size || "One Size",
-        color: product.colors[0].name,
+        // Default to first available options for Quick Add safely
+        size: defaultSize,
+        color: defaultColor,
         image: product.images[0],
+        // Added missing fields to match your cartSlice setup
+        isCustomizable: product.isCustomizable || false,
+        customText: "",
       }),
     );
+    
     toast.success("Added to bag");
     dispatch(openCart());
   };
@@ -93,7 +104,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
           >
             <Heart
               size={16}
-              className={`transition-colors ${isWishlisted ? "fill-red-500 text-red-500" : "currentColor"}`}
+              fill={isWishlisted ? "currentColor" : "none"}
+              className={`transition-colors ${isWishlisted ? "text-red-500" : "text-foreground"}`}
             />
           </button>
 

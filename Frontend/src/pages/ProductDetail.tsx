@@ -15,18 +15,18 @@ import {
   Minus,
   RefreshCcw,
 } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { addToCart, openCart } from "@/store/cartSlice";
-import { createReview, resetReviewStatus } from "@/store/productSlice";
-import { addToWishlist, removeFromWishlist } from "@/store/wishlistSlice";
-import { toast } from "sonner";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Rating from "@/components/Rating";
+import { useAppDispatch, useAppSelector } from "../store";
+import { addToCart, openCart } from "../store/cartSlice";
+import { createReview, resetReviewStatus } from "../store/productSlice";
+import { addToWishlist, removeFromWishlist } from "../store/wishlistSlice";
+import { toast } from "../components/ui/sonner";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Rating from "../components/Rating";
 import axios from "axios";
-import type { Product } from "@/types";
+import type { Product } from "../types";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { RootState } from "../store";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -47,11 +47,9 @@ const ImageZoom = ({
     const { left, top, width, height } =
       e.currentTarget.getBoundingClientRect();
 
-    // Calculate cursor position relative to the container
     const x = e.pageX - left - window.scrollX;
     const y = e.pageY - top - window.scrollY;
 
-    // Calculate percentage positions with safety clamping
     const xPercent = Math.min(Math.max((x / width) * 100, 0), 100);
     const yPercent = Math.min(Math.max((y / height) * 100, 0), 100);
 
@@ -64,7 +62,6 @@ const ImageZoom = ({
       onMouseEnter={() => setIsZoomed(true)}
       onMouseLeave={() => {
         setIsZoomed(false);
-        // Subtle delay before resetting origin to keep the exit transition smooth
         setTimeout(() => setTransformOrigin("center center"), 500);
       }}
       onMouseMove={handleMouseMove}
@@ -73,16 +70,13 @@ const ImageZoom = ({
       <img
         src={src}
         alt={alt}
+        // Note: If images from Cloudinary fail to load, remove crossOrigin="anonymous"
         crossOrigin="anonymous"
-        // scale-[1.8] for a realistic zoom level
-        // duration-500 + ease-out creates that "liquid" satisfying glide
         className={`w-full h-full object-cover transition-transform duration-500 ease-out will-change-transform ${
           isZoomed ? "scale-[1.8]" : "scale-100"
         }`}
         style={{ transformOrigin: transformOrigin }}
       />
-
-      {/* Subtle protective ring to maintain clean edges during zoom */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
           isZoomed ? "opacity-100" : "opacity-0"
@@ -181,8 +175,14 @@ const ProductDetail = () => {
       </div>
     );
 
-  const productImages =
-    product.images?.length > 0 ? product.images : [product.images?.[0] || ""];
+  // Safe image extraction
+  const productImages = product?.images?.length ? product.images : [];
+  const displayImage = productImages[selectedImage] || productImages[0] || "";
+
+  // Safe color extraction (handles both string arrays and object arrays)
+  const productColor = typeof product.colors?.[0] === 'string' 
+    ? product.colors[0] 
+    : product.colors?.[0]?.name || "Standard";
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -197,8 +197,8 @@ const ProductDetail = () => {
         price: product.price,
         quantity: 1,
         size: selectedSize,
-        color: product.colors?.[0]?.name || "Standard",
-        image: productImages[0],
+        color: productColor,
+        image: displayImage,
         isCustomizable: product.isCustomizable,
         customText: product.isCustomizable ? customText : "",
       }),
@@ -207,6 +207,8 @@ const ProductDetail = () => {
     toast.success("Added to bag");
     dispatch(openCart());
   };
+
+  const productRating = product.rating || 0;
 
   return (
     <>
@@ -224,11 +226,13 @@ const ProductDetail = () => {
             {/* GALLERY SECTION */}
             <div className="lg:col-span-5 space-y-6">
               <div className="aspect-[3/4] shadow-sm rounded-2xl overflow-hidden">
-                <ImageZoom
-                  src={productImages[selectedImage]}
-                  alt={product.name}
-                  onClick={() => setIsLightboxOpen(true)}
-                />
+                {displayImage && (
+                  <ImageZoom
+                    src={displayImage}
+                    alt={product.name}
+                    onClick={() => setIsLightboxOpen(true)}
+                  />
+                )}
               </div>
 
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide justify-center">
@@ -257,13 +261,13 @@ const ProductDetail = () => {
                 </h1>
                 <div className="flex items-center gap-4">
                   <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
+                    value={productRating}
+                    text={`${product.numReviews || 0} reviews`}
                   />
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="text-3xl font-bold">
-                    ₹{product.price.toLocaleString()}
+                    ₹{product.price?.toLocaleString()}
                   </span>
                   <span className="text-sm text-muted-foreground line-through">
                     ₹{(product.price * 2).toLocaleString()}
@@ -291,9 +295,9 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {product.sizes.map((sizeVariant: any) => {
-                    const sizeName = sizeVariant.size;
-                    const isOutOfStock = !sizeVariant || sizeVariant.stock <= 0;
+                  {product.sizes?.map((sizeVariant: any) => {
+                    const sizeName = sizeVariant.size || sizeVariant;
+                    const isOutOfStock = sizeVariant && typeof sizeVariant === 'object' ? sizeVariant.stock <= 0 : false;
 
                     return (
                       <button
@@ -321,7 +325,7 @@ const ProductDetail = () => {
                   <div className="space-y-3 pt-4 border-t border-border mt-6">
                     <div className="flex justify-between items-center text-[11px] uppercase tracking-widest font-black">
                       <span>Custom Text (Optional)</span>
-                      <span className={customText.length > 20 ? "text-red-500" : "text-muted-foreground"}>
+                      <span className={customText.length >= 20 ? "text-red-500" : "text-muted-foreground"}>
                         {customText.length}/20
                       </span>
                     </div>
@@ -352,9 +356,11 @@ const ProductDetail = () => {
                         toast.error("Please login to use wishlist");
                         return;
                       }
-                      wishlisted
-                        ? dispatch(removeFromWishlist(product._id))
-                        : dispatch(addToWishlist(product));
+                      if (wishlisted) {
+                        dispatch(removeFromWishlist(product._id));
+                      } else {
+                        dispatch(addToWishlist(product));
+                      }
                     }}
                     className={`flex-1 border-2 flex items-center justify-center rounded-xl transition-all ${wishlisted ? "text-red-500 border-red-500 bg-red-50" : "text-muted-foreground"}`}
                   >
@@ -410,8 +416,7 @@ const ProductDetail = () => {
                                 { label: "Fit Type", value: "Oversized Fit" },
                                 {
                                   label: "Color",
-                                  value:
-                                    product.colors?.[0]?.name || "Standard",
+                                  value: productColor,
                                 },
                                 {
                                   label: "SKU",
@@ -490,12 +495,12 @@ const ProductDetail = () => {
                 <h3 className="font-serif text-3xl">Customer Stories</h3>
                 <div className="flex items-center gap-4">
                   <span className="text-6xl font-serif">
-                    {product.rating > 0 ? product.rating.toFixed(1) : "0.0"}
+                    {productRating > 0 ? productRating.toFixed(1) : "0.0"}
                   </span>
                   <div className="space-y-1">
-                    <Rating value={product.rating} color="hsl(var(--primary))" />
+                    <Rating value={productRating} color="hsl(var(--primary))" />
                     <p className="text-[10px] uppercase tracking-widest opacity-60">
-                      Based on {product.numReviews} Reviews
+                      Based on {product.numReviews || 0} Reviews
                     </p>
                   </div>
                 </div>
@@ -510,6 +515,9 @@ const ProductDetail = () => {
                       >
                         <option value="0">Select Rating...</option>
                         <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
                         <option value="5">5 - Excellent</option>
                       </select>
                       <textarea
@@ -565,9 +573,11 @@ const ProductDetail = () => {
         </div>
       </main>
 
+      {/* Added explicit keys to children inside AnimatePresence for stability */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
+            key="lightbox-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -583,7 +593,7 @@ const ProductDetail = () => {
               <motion.img
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
-                src={productImages[selectedImage]}
+                src={displayImage}
                 crossOrigin="anonymous"
                 className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
@@ -592,7 +602,7 @@ const ProductDetail = () => {
         )}
 
         {showSizeGuide && (
-          <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
+          <div key="size-guide-modal" className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

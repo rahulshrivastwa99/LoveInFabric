@@ -44,7 +44,7 @@ const Contact = () => {
                       Email Support
                     </h3>
                     <p className="text-foreground font-medium">
-                      LoveInFabric.clothing15@gmail.com
+                      The Lyyn.clothing15@gmail.com
                     </p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const Contact = () => {
                       Headquarters
                     </h3>
                     <p className="text-foreground font-medium leading-relaxed">
-                      LoveInFabric Pvt Ltd.
+                      The Lyyn Pvt Ltd.
                       <br />
                       Delhi, India
                     </p>

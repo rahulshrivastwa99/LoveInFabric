@@ -206,7 +206,7 @@ const Checkout = () => {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: razorpayOrder.amount, // Amount in paise
             currency: "INR",
-            name: "LoveInFabric Clothing",
+            name: "The Lyyn Clothing",
             description: `Order #${orderId}`,
             order_id: razorpayOrder.id, // Razorpay Order ID
             

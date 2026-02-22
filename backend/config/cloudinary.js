@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
 // not a class constructor. Call it directly instead of `new CloudinaryStorage(...)`.
 const storage = cloudinaryStorage({
   cloudinary, // pass the full instance so `.v2` exists inside the library
-  folder: 'LoveInFabric_products',
+  folder: 'The Lyyn_products',
   allowedFormats: ['jpg', 'png', 'jpeg', 'webp'],
   transformation: [{ width: 1000, height: 1000, crop: 'limit' }],
 });

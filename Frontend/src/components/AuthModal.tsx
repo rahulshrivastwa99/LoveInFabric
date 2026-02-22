@@ -38,7 +38,7 @@ const AuthModal = () => {
     if (user && showAuthModal && !isLoading) {
        const message = mode === 'login' 
          ? `Welcome back, ${user.name.split(' ')[0]}!` 
-         : `Welcome to LoveInFabric, ${user.name.split(' ')[0]}!`;
+         : `Welcome to The Lyyn, ${user.name.split(' ')[0]}!`;
        toast.success(message, { id: 'auth-success' });
        
        setIsSuccess(true);
@@ -166,7 +166,7 @@ const AuthModal = () => {
                     transition={{ delay: 0.1, duration: 0.4 }}
                     className="font-serif text-3xl mb-2"
                   >
-                    {mode === 'login' ? 'Welcome Back.' : 'Join LoveInFabric.'}
+                    {mode === 'login' ? 'Welcome Back.' : 'Join The Lyyn.'}
                   </motion.h2>
                   <motion.p 
                     initial={{ opacity: 0, y: 10 }}
@@ -247,7 +247,7 @@ const AuthModal = () => {
 
                 <div className="mt-8 text-center border-t border-border/50 pt-6">
                   <p className="font-body text-sm text-muted-foreground">
-                    {mode === 'login' ? "New to LoveInFabric? " : 'Already a member? '}
+                    {mode === 'login' ? "New to The Lyyn? " : 'Already a member? '}
                     <button
                       onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
                       className="underline text-foreground hover:text-foreground/80 font-medium ml-1"

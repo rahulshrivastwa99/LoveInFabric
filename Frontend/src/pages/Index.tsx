@@ -4,22 +4,22 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 // --- STRICTLY USING ONLY AVAILABLE ASSETS ---
-import categoryMen from "@/assets/blanket 1.jpg";
-import categoryWomen from "@/assets/Gemini_Generated_Image_pde47vpde47vpde4.jpg";
+import categoryMen from "../assets/blanket 1.jpg";
+import categoryWomen from "../assets/Gemini_Generated_Image_pde47vpde47vpde4.jpg";
 // Replaced missing accessories image with after-happy so it doesn't crash
-import categoryAccessories from "@/assets/after-happy.jpg";
+import categoryAccessories from "../assets/after-happy.jpg";
 
 // Using your actual before and after images!
-import sadBeforeImage from "@/assets/before-sad.jpg";
-import happyAfterImage from "@/assets/after-happy.jpg";
+import sadBeforeImage from "../assets/before-sad.jpg";
+import happyAfterImage from "../assets/after-happy.jpg";
 
-import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchProducts } from "@/store/productSlice";
-import ProductCard from "@/components/ProductCard";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BeforeAfterSlider from "@/components/BeforeAfterSlider";
-import HeroCarousel from "@/components/HeroCarousel";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchProducts } from "../store/productSlice";
+import ProductCard from "../components/ProductCard";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import HeroCarousel from "../components/HeroCarousel";
 
 const categories = [
   {
@@ -35,7 +35,7 @@ const categories = [
   {
     label: "Accessories",
     image: categoryAccessories,
-    to: "/shop?category=accessories",
+    to: "/shop?category=Accessories",
   },
 ];
 
@@ -60,13 +60,13 @@ const Index = () => {
     .slice(0, 8);
   const newArrivals = safeProducts.slice(0, 8);
 
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest animate-pulse">
-        Loading LoveInFabric Collection...
-      </div>
-    );
-  }
+//  if (status === "loading") {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest animate-pulse">
+//       Loading The Lyyn Collection...
+//     </div>
+//   );
+// }
 
   return (
     <>
@@ -77,54 +77,57 @@ const Index = () => {
         <HeroCarousel />
 
         {/* How Customization Works */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container text-center">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mb-4 block">
-              Process
-            </span>
-            <h2 className="font-serif text-3xl md:text-4xl mb-16">
-              How Customization Works
-            </h2>
+<section className="py-20 bg-secondary/30">
+  <div className="container text-center">
+    <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mb-4 block">
+      Process
+    </span>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-              {[
-                {
-                  step: "01",
-                  title: "Choose Your Base",
-                  desc: "Select from our premium blankets or heavy-weight tees.",
-                },
-                {
-                  step: "02",
-                  title: "Customize It",
-                  desc: "Add your name, a special date, or a meaningful phrase.",
-                },
-                {
-                  step: "03",
-                  title: "We Craft & Ship",
-                  desc: "Each piece is printed to order and shipped with care.",
-                },
-              ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.2 }}
-                  className="space-y-4"
-                >
-                  <span className="font-serif text-6xl text-foreground/10 block">
-                    {item.step}
-                  </span>
-                  <h3 className="font-serif text-xl">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+    <h2 className="font-serif text-3xl md:text-4xl mb-16">
+      How Customization Works
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+      {[
+        {
+          step: "01",
+          title: "Choose Your Base",
+          desc: "Select from our premium blankets or heavy-weight tees.",
+        },
+        {
+          step: "02",
+          title: "Customize It",
+          desc: "Add your name, a special date, or a meaningful phrase.",
+        },
+        {
+          step: "03",
+          title: "We Craft & Ship",
+          desc: "Each piece is printed to order and shipped with care.",
+        },
+      ].map((item) => (
+        <motion.div
+          key={item.step}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-4"
+        >
+          <span className="font-serif text-6xl text-foreground/10 block">
+            {item.step}
+          </span>
 
+          <h3 className="font-serif text-xl">
+            {item.title}
+          </h3>
+
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+            {item.desc}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
         {/* Categories */}
         <section className="container py-12 lg:py-20">
           <motion.h2
@@ -203,17 +206,17 @@ const Index = () => {
                 Express Yourself
               </span>
               <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-                Wear Your Vibe. <br /> Custom Tees.
+                Quality You Can Feel. <br /> Premium Tees.
               </h2>
               <p className="text-muted-foreground leading-relaxed font-light max-w-md">
-                Make it truly yours. Add custom text to our premium cotton tees.
-                Perfect for gifts, events, or just speaking your mind.
+                Crafted from the finest heavy-weight cotton, our tees provide 
+                unmatched comfort and a perfect fit that lasts.
               </p>
               <Link
                 to="/shop?category=Custom Tees"
                 className="inline-block border-b border-foreground pb-1 uppercase tracking-widest text-xs font-bold pt-4 hover:opacity-70 transition-opacity"
               >
-                Create Your Tee
+                Shop Collection
               </Link>
             </div>
             <div className="md:w-1/2">
@@ -346,10 +349,12 @@ const Index = () => {
                         "Fabric is not just material. <br/> It's a feeling, a memory, a hug."
                     </h2>
                     <p className="text-xl text-white/60 font-light leading-relaxed mb-12">
-                        At LoveInFabric, we believe in creating pieces that bring warmth and personality into your life. 
+                        At The Lyyn, we believe in creating pieces that bring warmth and personality into your life. 
                         Every stitch is intentional, every fabric chosen for comfort.
                     </p>
-                    <img src="/signature.png" alt="LoveInFabric" className="h-12 mx-auto opacity-50 invert" />
+                    <div className="font-serif text-3xl italic text-primary/70 opacity-80 tracking-widest select-none">
+                        The Lyyn
+                    </div>
                 </motion.div>
             </div>
         </section>
@@ -372,7 +377,7 @@ const Index = () => {
           </div>
 
           {/* Pagination */}
-          {pages > 1 && (
+          {pages > 1 && page <= pages && (
             <div className="flex justify-center mt-16 gap-3">
               <button
                 disabled={page === 1}

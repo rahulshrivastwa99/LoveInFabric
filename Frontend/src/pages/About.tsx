@@ -32,7 +32,7 @@ const About = () => {
             className="mb-16"
           >
             <h1 className="font-serif text-5xl text-foreground leading-tight mb-4">
-              LoveInFabric: Where Your Weird is Your Superpower
+              The Lyyn: Where Your Weird is Your Superpower
             </h1>
             <p className="text-xl text-muted-foreground font-serif leading-relaxed italic">
               "We're not about fitting in. We're about owning your crazy, loud,
@@ -42,7 +42,7 @@ const About = () => {
 
           <div className="space-y-12 text-foreground/80 leading-relaxed">
             <p className="text-lg">
-              Every blank wall's a canvas, every hallway a runway. LoveInFabric is your
+              Every blank wall's a canvas, every hallway a runway. The Lyyn is your
               antidote to the mundane. We're streetwear for the next generation,
               the generation that turns curiosity into fire, imagination into
               fuel. We're the vocal minority, the square pegs in the round
@@ -51,9 +51,9 @@ const About = () => {
 
             <section className="bg-secondary/10 p-10 rounded-2xl border border-border">
               <h3 className="font-serif text-2xl text-foreground mb-4">
-                The LoveInFabric Motto
+                The The Lyyn Motto
               </h3>
-              <p className="italic">"Be you. Be LoveInFabric."</p>
+              <p className="italic">"Be you. Be The Lyyn."</p>
               <p className="mt-4">
                 Often, a person who does things differently is termed as
                 "weirdo". Truth be told, a weirdo is simply someone open to
@@ -84,7 +84,7 @@ const About = () => {
 
             <p>
               Unparalleled prints, out-of-the-ordinary styles, head-turning
-              graphics? LoveInFabric's like your wardrobe on fleek. Join the tribe,
+              graphics? The Lyyn's like your wardrobe on fleek. Join the tribe,
               unleash your inner weirdo, and make every damn day unskippable.
             </p>
           </div>

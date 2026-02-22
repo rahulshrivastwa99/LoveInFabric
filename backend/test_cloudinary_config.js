@@ -17,7 +17,7 @@ try {
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'LoveInFabric-products',
+      folder: 'The Lyyn-products',
       allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
     },
   });

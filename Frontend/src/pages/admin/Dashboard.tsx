@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { listOrders, deliverOrder } from '../../store/orderSlice'; // Import deliverOrder
+import { listOrders, deliverOrder } from '../../store/orderSlice';
 import { fetchProducts } from '../../store/productSlice';
 import { DollarSign, ShoppingBag, Package, Truck, CheckCircle } from 'lucide-react'; // Added icons
 import { toast } from 'sonner';
@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(listOrders());
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({}) as any);
   }, [dispatch]);
 
   const handleDeliver = (id: string) => {
@@ -34,9 +34,13 @@ const AdminDashboard = () => {
     }
   };
 
-  const totalSales = orders.reduce((acc, order) => acc + (order.totalPrice || 0), 0);
-  const totalOrders = orders.length;
-  const totalProducts = products.length;
+  // Safe fallbacks in case state is initially undefined
+  const safeOrders = orders || [];
+  const safeProducts = products || [];
+
+  const totalSales = safeOrders.reduce((acc, order) => acc + (order.totalPrice || 0), 0);
+  const totalOrders = safeOrders.length;
+  const totalProducts = safeProducts.length;
 
   if (ordersLoading || productStatus === 'loading') {
     return (
@@ -100,16 +104,20 @@ const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {orders.length === 0 ? (
+              {safeOrders.length === 0 ? (
                   <tr>
                       <td colSpan={5} className="p-8 text-center text-muted-foreground">No orders found</td>
                   </tr>
               ) : (
-                orders.slice().reverse().map((order) => (
+                safeOrders.slice().reverse().map((order) => (
                     <tr key={order._id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="p-4 font-mono text-xs text-muted-foreground">#{order._id?.substring(order._id.length - 6).toUpperCase()}</td>
-                    <td className="p-4 font-body text-sm font-medium">{order.user?.name || 'Guest Customer'}</td> 
-                    <td className="p-4 font-body text-sm">₹{order.totalPrice.toFixed(2)}</td>
+                    {/* Safe _id slicing */}
+                    <td className="p-4 font-mono text-xs text-muted-foreground">#{order._id?.slice(-6).toUpperCase() || 'N/A'}</td>
+                    <td className="p-4 font-body text-sm font-medium">
+                        {typeof order.user === 'object' && order.user !== null ? (order.user as any).name : 'Guest Customer'}
+                    </td> 
+                    {/* Safe toFixed handling */}
+                    <td className="p-4 font-body text-sm">₹{(order.totalPrice || 0).toFixed(2)}</td>
                     <td className="p-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         order.isDelivered 
@@ -151,7 +159,8 @@ const AdminDashboard = () => {
           <div className="bg-background p-6 rounded-lg shadow-xl w-full max-w-md border border-border animate-in fade-in zoom-in duration-200">
             <h3 className="font-serif text-xl mb-2">Confirm Delivery</h3>
             <p className="font-body text-muted-foreground mb-6">
-              Are you sure you want to mark order #{confirmId.substring(confirmId.length - 6).toUpperCase()} as delivered?
+              {/* Safe slice for the modal ID */}
+              Are you sure you want to mark order #{confirmId.slice(-6).toUpperCase()} as delivered?
             </p>
             <div className="flex justify-end gap-3">
               <button

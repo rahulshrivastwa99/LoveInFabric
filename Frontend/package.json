@@ -1,8 +1,8 @@
 {
-  "name": "loveinfabric-frontend",
+  "name": "The Lyyn-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Frontend for LoveInFabric - Premium Custom Blanket & Apparel Store",
+  "description": "Frontend for The Lyyn - Premium Custom Blanket & Apparel Store",
   "type": "module",
   "scripts": {
     "dev": "vite",

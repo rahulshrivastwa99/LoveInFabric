@@ -19,7 +19,7 @@ interface CartState {
 
 const loadCart = (): CartItem[] => {
   try {
-    const saved = localStorage.getItem('LoveInFabric-cart');
+    const saved = localStorage.getItem('The Lyyn-cart');
     return saved ? JSON.parse(saved) : [];
   } catch {
     return [];
@@ -27,7 +27,7 @@ const loadCart = (): CartItem[] => {
 };
 
 const saveCart = (items: CartItem[]) => {
-  localStorage.setItem('LoveInFabric-cart', JSON.stringify(items));
+  localStorage.setItem('The Lyyn-cart', JSON.stringify(items));
 };
 
 const initialState: CartState = {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { RootState } from "./index";
 
 // You might need to adjust this interface based on your actual Product type
+// Product Interface - Unified with types.ts
 export interface Review {
   _id: string;
   name: string;
@@ -19,12 +20,13 @@ export interface Product {
   description: string;
   category: string;
   images: string[];
-  sizes: string[];
+  sizes: { size: string; stock: number }[];
   colors: { name: string; hex: string }[];
-  stock: Record<string, number>;
   reviews: Review[];
   rating: number;
   numReviews: number;
+  isBestSeller?: boolean;
+  isCustomizable?: boolean;
   user?: string;
   createdAt?: string;
   updatedAt?: string;
