@@ -19,6 +19,10 @@ const startServer = async () => {
     
     const app = express();
     app.use(cors());
+//     app.use(cors({
+//   origin: ["https://thelyyn.com", "http://localhost:5173"], // Yahan apni frontend ka asli URL dalo
+//   credentials: true
+// }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true })); // Added to help with FormData parsing
 
