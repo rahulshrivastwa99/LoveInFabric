@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import {
   Instagram,
@@ -13,10 +13,10 @@ import { toast } from "sonner";
 const Footer = () => {
   const [email, setEmail] = useState("");
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = (e: FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
-      toast.success("Welcome to the LoveInFabric Fam!");
+      toast.success("Welcome to the The Lyyn Fam!");
       setEmail("");
     }
   };
@@ -32,6 +32,11 @@ const Footer = () => {
     },
   ];
 
+  // Helper function to ensure we start at the top of the newly loaded page
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="bg-[#FAF9F6] text-stone-800 border-t border-stone-200 selection:bg-stone-800 selection:text-white">
       <div className="container pt-20 pb-10">
@@ -39,7 +44,6 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
           {/* LEFT: Newsletter */}
           <div className="lg:col-span-4 flex flex-col justify-start">
-            {/* INCREASED: Title size from text-lg to text-xl md:text-2xl */}
             <h3 className="font-serif text-xl md:text-2xl mb-4 text-stone-900">
               Join our newsletter and receive 10% off your next order
             </h3>
@@ -66,23 +70,23 @@ const Footer = () => {
           <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:pl-12">
             {/* Explore */}
             <div>
-              {/* INCREASED: Heading size to text-base */}
               <h4 className="font-semibold text-base text-stone-900 mb-6">
                 Explore
               </h4>
               <ul className="space-y-4">
                 {[
-                  "Premium Blankets",
-                  "Custom Tees",
-                  "Accessories",
-                  "New Arrivals",
+                  { label: "Premium Blankets", category: "Blankets" },
+                  { label: "Custom Tees", category: "Custom Tees" },
+                  { label: "Accessories", category: "Accessories" },
+                  { label: "New Arrivals", category: "" },
                 ].map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <Link
-                      to={`/shop?category=${link.toLowerCase().replace(" ", "-")}`}
+                      to={link.category ? `/shop?category=${encodeURIComponent(link.category)}` : "/shop"}
+                      onClick={scrollToTop}
                       className="text-base text-stone-700 hover:text-stone-950 transition-colors block w-fit group"
                     >
-                      {link}
+                      {link.label}
                       <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-[1px] bg-stone-900 mt-0.5"></span>
                     </Link>
                   </li>
@@ -97,13 +101,14 @@ const Footer = () => {
               </h4>
               <ul className="space-y-4">
                 {[
-                  { label: "About LoveInFabric", path: "/about" },
+                  { label: "About The Lyyn", path: "/about" },
                   { label: "Terms & Conditions", path: "/terms" },
                   { label: "Privacy Policy", path: "/privacy" },
                 ].map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.path}
+                      onClick={scrollToTop}
                       className="text-base text-stone-700 hover:text-stone-950 transition-colors block w-fit group"
                     >
                       {link.label}
@@ -129,6 +134,7 @@ const Footer = () => {
                   <li key={link.label}>
                     <Link
                       to={link.path}
+                      onClick={scrollToTop}
                       className="text-base text-stone-700 hover:text-stone-950 transition-colors block w-fit group"
                     >
                       {link.label}
@@ -146,27 +152,29 @@ const Footer = () => {
           {/* Left: Socials & Copyright */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-5">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-stone-700 hover:text-stone-950 transition-colors hover:scale-110 transform duration-200"
-                  aria-label={social.name}
-                >
-                  <social.icon size={22} strokeWidth={1.5} />
-                </a>
-              ))}
+              {socialLinks.map((social) => {
+                const Icon = social.icon; // Assigned to capital letter for safer React rendering
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-stone-700 hover:text-stone-950 transition-colors hover:scale-110 transform duration-200"
+                    aria-label={social.name}
+                  >
+                    <Icon size={22} strokeWidth={1.5} />
+                  </a>
+                );
+              })}
             </div>
-            {/* INCREASED: Removed font-light, changed to text-sm */}
             <p className="text-sm text-stone-600 tracking-wide">
-              &copy; 2026, LoveInFabric. Designed for comfort.
+              &copy; 2026, The Lyyn. Designed for comfort.
             </p>
           </div>
           <div>
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onClick={scrollToTop}
               className="text-sm font-medium text-stone-700 hover:text-stone-950 transition-colors flex items-center gap-2 group"
             >
               Back to Top

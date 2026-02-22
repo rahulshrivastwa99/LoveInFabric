@@ -206,7 +206,7 @@ const Checkout = () => {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: razorpayOrder.amount, // Amount in paise
             currency: "INR",
-            name: "LoveInFabric Clothing",
+            name: "The Lyyn Clothing",
             description: `Order #${orderId}`,
             order_id: razorpayOrder.id, // Razorpay Order ID
             
@@ -278,14 +278,14 @@ const Checkout = () => {
         onConfirmExit={handleConfirmExit}
       />
 
-      <main className="pt-28 lg:pt-32 min-h-screen bg-gray-50/50">
+      <main className="pt-28 lg:pt-32 min-h-screen bg-background">
         <div className="container py-8 lg:py-12 max-w-6xl">
           <h1 className="font-serif text-3xl mb-10 text-center lg:text-left">Checkout</h1>
 
           {cart.items.length === 0 ? (
-            <div className="text-center py-20 bg-white border border-border rounded-sm">
+            <div className="text-center py-20 bg-background border border-border rounded-sm">
               <p className="font-body text-muted-foreground mb-4">Your bag is empty.</p>
-              <button onClick={() => navigate('/shop')} className="text-foreground underline hover:text-black/70">Continue Shopping</button>
+              <button onClick={() => navigate('/shop')} className="text-foreground underline hover:text-foreground/70">Continue Shopping</button>
             </div>
           ) : (
             <form onSubmit={handlePlaceOrder}>
@@ -299,7 +299,7 @@ const Checkout = () => {
                   transition={{ duration: 0.5 }}
                 >
                   {/* Address Section */}
-                  <div className="bg-white p-6 lg:p-8 border border-border rounded-sm shadow-sm">
+                  <div className="bg-background p-6 lg:p-8 border border-border rounded-sm shadow-sm">
                     <h2 className="font-serif text-xl mb-6 flex items-center gap-2">
                        1. Shipping Address
                     </h2>
@@ -340,14 +340,14 @@ const Checkout = () => {
                           required 
                           value={country}
                           readOnly
-                          className="w-full border border-border bg-gray-50 px-4 py-3 text-sm text-muted-foreground cursor-not-allowed rounded-sm" 
+                          className="w-full border border-border bg-secondary/10 px-4 py-3 text-sm text-muted-foreground cursor-not-allowed rounded-sm" 
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Payment Section */}
-                  <div className="bg-white p-6 lg:p-8 border border-border rounded-sm shadow-sm">
+                  <div className="bg-background p-6 lg:p-8 border border-border rounded-sm shadow-sm">
                     <h2 className="font-serif text-xl mb-6 flex items-center gap-2">
                        2. Payment Method
                     </h2>
@@ -361,7 +361,7 @@ const Checkout = () => {
                           className={`flex items-center gap-4 cursor-pointer p-4 border rounded-sm transition-all ${
                             paymentMethod === pm.value 
                               ? 'border-foreground bg-secondary/10 ring-1 ring-foreground' 
-                              : 'border-border hover:border-gray-400'
+                              : 'border-border hover:border-foreground/40'
                           }`}
                         >
                           <input
@@ -387,14 +387,14 @@ const Checkout = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
                 >
-                  <div className="bg-white border border-border p-6 lg:p-8 rounded-sm shadow-sm sticky top-24">
+                  <div className="glass-panel p-6 lg:p-8 sticky container top-24 bg-background/50 backdrop-blur-md border border-border">
                     <h2 className="font-serif text-xl mb-6">Order Summary</h2>
                     
                     {/* Items List */}
                     <div className="space-y-4 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                       {cart.items.map((item) => (
                         <div key={`${item.productId}-${item.size}-${item.color}`} className="flex gap-4 py-2 border-b border-border/50 last:border-0">
-                          <div className="w-16 h-20 bg-gray-100 flex-shrink-0 rounded-sm overflow-hidden border border-border">
+                          <div className="w-16 h-20 bg-secondary/20 flex-shrink-0 rounded-sm overflow-hidden border border-border">
                              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -440,7 +440,7 @@ const Checkout = () => {
                       </div>
 
                       {shippingPrice > 0 && (
-                        <div className="text-xs text-blue-600 bg-blue-50 p-2 rounded text-center">
+                        <div className="text-xs text-primary bg-secondary/10 p-2 rounded text-center">
                            Add items worth {formatPrice(5000 - itemsPrice)} more for free shipping!
                         </div>
                       )}
@@ -457,7 +457,7 @@ const Checkout = () => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full mt-6 bg-foreground text-background py-4 luxury-button hover:bg-black/90 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2 rounded-sm shadow-md"
+                      className="w-full mt-6 bg-primary text-white py-4 luxury-button hover:bg-primary/90 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2 rounded-md shadow-md"
                     >
                       {loading ? <Loader2 className="animate-spin" /> : <ShieldCheck size={18} />}
                       {loading ? 'Processing...' : `Pay ${formatPrice(totalPrice)}`}

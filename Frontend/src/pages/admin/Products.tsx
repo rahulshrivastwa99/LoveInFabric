@@ -1,9 +1,12 @@
+import React from 'react';
+
 import { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import { Plus, Edit, Trash2 } from 'lucide-react';
-import { useAppSelector, useAppDispatch } from '@/store';
-import { fetchProducts } from '@/store/productSlice';
-import { toast } from 'sonner';
+import { useAppSelector, useAppDispatch } from '../../store';
+import { fetchProducts } from '../../store/productSlice';
+import { toast } from '../../components/ui/sonner';
 
 const AdminProducts = () => {
   const dispatch = useAppDispatch();

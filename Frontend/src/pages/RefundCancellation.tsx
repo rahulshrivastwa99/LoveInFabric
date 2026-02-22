@@ -36,7 +36,7 @@ const RefundCancellation = () => {
               Refund & Replacement Policy
             </h1>
             <p className="text-gray-500 text-sm">
-              We want you to love your LoveInFabric look.
+              We want you to love your The Lyyn look.
             </p>
           </motion.div>
 
@@ -46,7 +46,7 @@ const RefundCancellation = () => {
                 <RefreshCcw /> Return & Replacement
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Didn’t like your LoveInFabric look? No worries, you can return or
+                Didn’t like your The Lyyn look? No worries, you can return or
                 exchange your purchase within{" "}
                 <strong>7 days of delivery</strong>, free of charge for
                 exchanges. We want you to love your look.
@@ -97,7 +97,7 @@ const RefundCancellation = () => {
             <section className="text-center">
               <div className="flex justify-center gap-4">
                 <a
-                  href="mailto:LoveInFabric.clothing15@gmail.com"
+                  href="mailto:The Lyyn.clothing15@gmail.com"
                   className="bg-black text-white px-8 py-3 rounded-md font-bold uppercase tracking-widest text-xs"
                 >
                   Email Support

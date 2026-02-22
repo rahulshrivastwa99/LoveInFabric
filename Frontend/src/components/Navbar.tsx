@@ -16,10 +16,10 @@ import {
   Mic,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppSelector, useAppDispatch } from "@/store";
-import { openCart } from "@/store/cartSlice";
-import { fetchWishlist } from "@/store/wishlistSlice";
-import { openAuthModal, initiateLogout } from "@/store/authSlice";
+import { useAppSelector, useAppDispatch } from "../store";
+import { openCart } from "../store/cartSlice";
+import { fetchWishlist } from "../store/wishlistSlice";
+import { openAuthModal, initiateLogout } from "../store/authSlice";
 import SearchDrawer from "./SearchDrawer";
 import AuthModal from "./AuthModal";
 
@@ -31,7 +31,20 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from "./ui/navigation-menu";
+
+// Module-level constant — moved outside component to satisfy react-hooks/exhaustive-deps
+const announcements = [
+  {
+    text: "Get Upto 15% Cashback via Scratch Card on transaction via MobiKwik UPI with MOV as ₹1499/-. T&C Apply*.",
+  },
+  {
+    text: "Get up to ₹250 cashback on payment via Mobikwik wallet over Rs. 999. T&C Apply*.",
+  },
+  {
+    text: "Get 10% Cashback on Minimum transaction value of ₹999 on your payment via MobiKwik UPI. T&C Apply*.",
+  },
+];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -44,18 +57,6 @@ const Navbar = () => {
 
   // --- ROTATING ANNOUNCEMENTS ---
   const [currentAnnouncement, setCurrentAnnouncement] = useState(0);
-
-  const announcements = [
-    {
-      text: "Get Upto 15% Cashback via Scratch Card on transaction via MobiKwik UPI with MOV as ₹1499/-. T&C Apply*.",
-    },
-    {
-      text: "Get up to ₹250 cashback on payment via Mobikwik wallet over Rs. 999. T&C Apply*.",
-    },
-    {
-      text: "Get 10% Cashback on Minimum transaction value of ₹999 on your payment via MobiKwik UPI. T&C Apply*.",
-    },
-  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -171,7 +172,7 @@ const Navbar = () => {
             to="/"
             className={`font-serif text-2xl lg:text-4xl tracking-[0.1em] font-bold z-50 flex-shrink-0 transition-colors duration-300 ${textColorClass}`}
           >
-            LoveInFabric
+            The Lyyn
             <span className="text-xs align-top ml-0.5 tracking-normal font-sans font-light">
               ®
             </span>
@@ -187,7 +188,7 @@ const Navbar = () => {
             />
             <input
               type="text"
-              placeholder="Search LoveInFabric"
+              placeholder="Search The Lyyn"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={(e) => {
@@ -581,7 +582,7 @@ const Navbar = () => {
             >
               <div className="flex items-center justify-between px-6 py-5 border-b border-border/50">
                 <span className="text-xl tracking-[0.2em] font-bold font-serif">
-                  LoveInFabric.
+                  The Lyyn.
                 </span>
                 <button
                   onClick={() => setMobileOpen(false)}

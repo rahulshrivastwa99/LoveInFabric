@@ -49,7 +49,7 @@ const startServer = async () => {
 
     // Basic Route
     app.get('/', (req, res) => {
-      res.send('LoveInFabric Backend API is Live...');
+      res.send('The Lyyn Backend API is Live...');
     });
 
     app.use('/api/products', productRoutes);
@@ -60,7 +60,7 @@ const startServer = async () => {
 
 
     app.get('/', (req, res) => {
-      res.send('LoveInFabric Backend API is Live...');
+      res.send('The Lyyn Backend API is Live...');
     });
 
     const PORT = process.env.PORT || 5000;
@@ -76,7 +76,7 @@ startServer();
 // const axios = require('axios');
 
 // const keepAlive = () => {
-//   const url = `https://LoveInFabricapi.onrender.com/`; 
+//   const url = `https://The Lyynapi.onrender.com/`; 
 //   setInterval(async () => {
 //     try {
 //       await axios.get(url);

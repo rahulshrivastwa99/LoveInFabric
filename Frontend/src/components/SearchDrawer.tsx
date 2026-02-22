@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from './ui/button';
-import { useAppSelector, useAppDispatch } from '@/store';
-import { searchProducts, clearSearch } from '@/store/productSlice';
+import { useAppSelector, useAppDispatch } from '../store';
+import { searchProducts, clearSearch } from '../store/productSlice';
 import EmptyState from './EmptyState';
 
 interface SearchDrawerProps {
@@ -18,6 +18,7 @@ const SearchDrawer = ({ isOpen, onClose }: SearchDrawerProps) => {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   
   // Use separate search state
   const { searchItems: products, searchStatus: status } = useAppSelector((state) => state.products);
@@ -87,7 +88,7 @@ const SearchDrawer = ({ isOpen, onClose }: SearchDrawerProps) => {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                         // Navigate to shop with query
-                        window.location.href = `/shop?keyword=${encodeURIComponent(query)}`;
+                        navigate(`/shop?keyword=${encodeURIComponent(query)}`);
                         onClose();
                     }
                   }}

@@ -4,22 +4,22 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 // --- STRICTLY USING ONLY AVAILABLE ASSETS ---
-import categoryMen from "@/assets/blanket 1.jpg";
-import categoryWomen from "@/assets/Gemini_Generated_Image_pde47vpde47vpde4.jpg";
+import categoryMen from "../assets/blanket 1.jpg";
+import categoryWomen from "../assets/Gemini_Generated_Image_pde47vpde47vpde4.jpg";
 // Replaced missing accessories image with after-happy so it doesn't crash
-import categoryAccessories from "@/assets/after-happy.jpg";
+import categoryAccessories from "../assets/after-happy.jpg";
 
 // Using your actual before and after images!
-import sadBeforeImage from "@/assets/before-sad.jpg";
-import happyAfterImage from "@/assets/after-happy.jpg";
+import sadBeforeImage from "../assets/before-sad.jpg";
+import happyAfterImage from "../assets/after-happy.jpg";
 
-import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchProducts } from "@/store/productSlice";
-import ProductCard from "@/components/ProductCard";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BeforeAfterSlider from "@/components/BeforeAfterSlider";
-import HeroCarousel from "@/components/HeroCarousel";
+import { useAppDispatch, useAppSelector } from "../store";
+import { fetchProducts } from "../store/productSlice";
+import ProductCard from "../components/ProductCard";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import HeroCarousel from "../components/HeroCarousel";
 
 const categories = [
   {
@@ -35,7 +35,7 @@ const categories = [
   {
     label: "Accessories",
     image: categoryAccessories,
-    to: "/shop?category=accessories",
+    to: "/shop?category=Accessories",
   },
 ];
 
@@ -60,13 +60,13 @@ const Index = () => {
     .slice(0, 8);
   const newArrivals = safeProducts.slice(0, 8);
 
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest animate-pulse">
-        Loading LoveInFabric Collection...
-      </div>
-    );
-  }
+//  if (status === "loading") {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center font-serif uppercase tracking-widest animate-pulse">
+//       Loading The Lyyn Collection...
+//     </div>
+//   );
+// }
 
   return (
     <>
@@ -77,54 +77,57 @@ const Index = () => {
         <HeroCarousel />
 
         {/* How Customization Works */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container text-center">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mb-4 block">
-              Process
-            </span>
-            <h2 className="font-serif text-3xl md:text-4xl mb-16">
-              How Customization Works
-            </h2>
+<section className="py-20 bg-secondary/30">
+  <div className="container text-center">
+    <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mb-4 block">
+      Process
+    </span>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-              {[
-                {
-                  step: "01",
-                  title: "Choose Your Base",
-                  desc: "Select from our premium blankets or heavy-weight tees.",
-                },
-                {
-                  step: "02",
-                  title: "Customize It",
-                  desc: "Add your name, a special date, or a meaningful phrase.",
-                },
-                {
-                  step: "03",
-                  title: "We Craft & Ship",
-                  desc: "Each piece is printed to order and shipped with care.",
-                },
-              ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.2 }}
-                  className="space-y-4"
-                >
-                  <span className="font-serif text-6xl text-foreground/10 block">
-                    {item.step}
-                  </span>
-                  <h3 className="font-serif text-xl">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+    <h2 className="font-serif text-3xl md:text-4xl mb-16">
+      How Customization Works
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+      {[
+        {
+          step: "01",
+          title: "Choose Your Base",
+          desc: "Select from our premium blankets or heavy-weight tees.",
+        },
+        {
+          step: "02",
+          title: "Customize It",
+          desc: "Add your name, a special date, or a meaningful phrase.",
+        },
+        {
+          step: "03",
+          title: "We Craft & Ship",
+          desc: "Each piece is printed to order and shipped with care.",
+        },
+      ].map((item) => (
+        <motion.div
+          key={item.step}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-4"
+        >
+          <span className="font-serif text-6xl text-foreground/10 block">
+            {item.step}
+          </span>
 
+          <h3 className="font-serif text-xl">
+            {item.title}
+          </h3>
+
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+            {item.desc}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
         {/* Categories */}
         <section className="container py-12 lg:py-20">
           <motion.h2
@@ -203,17 +206,17 @@ const Index = () => {
                 Express Yourself
               </span>
               <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-                Wear Your Vibe. <br /> Custom Tees.
+                Quality You Can Feel. <br /> Premium Tees.
               </h2>
               <p className="text-muted-foreground leading-relaxed font-light max-w-md">
-                Make it truly yours. Add custom text to our premium cotton tees.
-                Perfect for gifts, events, or just speaking your mind.
+                Crafted from the finest heavy-weight cotton, our tees provide 
+                unmatched comfort and a perfect fit that lasts.
               </p>
               <Link
                 to="/shop?category=Custom Tees"
                 className="inline-block border-b border-foreground pb-1 uppercase tracking-widest text-xs font-bold pt-4 hover:opacity-70 transition-opacity"
               >
-                Create Your Tee
+                Shop Collection
               </Link>
             </div>
             <div className="md:w-1/2">
@@ -237,71 +240,149 @@ const Index = () => {
         {/* Best Sellers */}
         <section className="bg-secondary py-12 lg:py-20">
           <div className="container">
-            <div className="flex items-center justify-between mb-12">
-              <h2 className="font-serif text-2xl lg:text-3xl">Best Sellers</h2>
+            <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+              <div>
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mb-3 block">Customer Favorites</span>
+                  <h2 className="font-serif text-4xl lg:text-5xl">Best Sellers</h2>
+              </div>
               <Link
                 to="/shop"
-                className="luxury-button text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
               >
-                View All <ArrowRight size={12} />
+                View All <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
+            
             {bestSellers.length > 0 ? (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
                 {bestSellers.map((p: any) => (
                   <ProductCard key={p._id || p.id} product={p} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10 text-muted-foreground">
-                <p>No best sellers available right now.</p>
-              </div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
+                    {/* Fallback View if no best sellers defined yet */}
+                     {[...Array(4)].map((_, i) => (
+                         <div key={i} className="animate-pulse">
+                             <div className="bg-gray-200 aspect-[3/4] rounded-xl mb-4"></div>
+                             <div className="h-4 bg-gray-200 w-3/4 mb-2 rounded"></div>
+                             <div className="h-4 bg-gray-200 w-1/4 rounded"></div>
+                         </div>
+                     ))}
+                </div>
             )}
           </div>
         </section>
 
-        {/* New Arrivals */}
-        <section className="container py-12 lg:py-20">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="font-serif text-2xl lg:text-3xl">New Arrivals</h2>
-            <Link
-              to="/shop"
-              className="luxury-button text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-            >
-              View All <ArrowRight size={12} />
-            </Link>
-          </div>
-          {newArrivals.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-              {newArrivals.map((p: any) => (
-                <ProductCard key={p._id || p.id} product={p} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              <p>New arrivals coming soon.</p>
-            </div>
-          )}
+        {/* --- FEATURED: CUSTOM TEES --- */}
+        <section className="py-32 bg-secondary/20 relative">
+             <div className="container flex flex-col md:flex-row-reverse items-center gap-16 lg:gap-24">
+                 <motion.div 
+                    className="md:w-1/2 space-y-8 md:pl-10"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                 >
+                     <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground pl-1 border-l-2 border-primary">Express Yourself</span>
+                     <h2 className="font-serif text-5xl md:text-6xl leading-tight">Wear Your Vibe. <br/> Custom Tees.</h2>
+                     <p className="text-muted-foreground leading-relaxed font-light text-lg max-w-md">
+                        Make it truly yours. Add custom text to our premium cotton tees. 
+                        Perfect for gifts, events, or just speaking your mind.
+                     </p>
+                     
+                     <div className="flex flex-col gap-4 pt-4">
+                         <div className="flex items-center gap-4">
+                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-primary font-serif font-bold">1</div>
+                             <p className="text-sm font-medium">Pick your favorite color</p>
+                         </div>
+                         <div className="flex items-center gap-4">
+                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-primary font-serif font-bold">2</div>
+                             <p className="text-sm font-medium">Add your custom text</p>
+                         </div>
+                         <div className="flex items-center gap-4">
+                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-primary font-serif font-bold">3</div>
+                             <p className="text-sm font-medium">Wear it with pride</p>
+                         </div>
+                     </div>
+
+                     <Link to="/shop?category=Custom Tees" className="mt-8 inline-block bg-primary text-white px-8 py-3 rounded-full uppercase tracking-widest text-xs font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/30">
+                        Start Designing
+                     </Link>
+                 </motion.div>
+                 
+                 <motion.div 
+                    className="md:w-1/2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                 >
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                        <img src={categoryWomen} alt="Custom Tees" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        
+                        {/* Interactive Float Element */}
+                        <div className="absolute bottom-10 left-10 right-10 glass-panel p-6 animate-float" style={{ animationDuration: "6s" }}>
+                            <div className="flex items-center gap-4">
+                                <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div className="h-full bg-primary w-2/3 animate-pulse"></div>
+                                </div>
+                                <span className="text-xs font-bold uppercase whitespace-nowrap">Customizing...</span>
+                            </div>
+                        </div>
+                    </div>
+                 </motion.div>
+             </div>
         </section>
 
-        {/* All Collection with Pagination */}
-        <section className="container pb-12">
-          <h2 className="font-serif text-2xl lg:text-3xl mb-12 text-center">
-            Our Collection
-          </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+        {/* --- MISSION / PHILOSOPHY --- */}
+        <section className="py-32 bg-stone-900 text-white text-center">
+            <div className="container max-w-4xl">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <span className="text-2xl font-serif italic text-primary/80 mb-6 block">Our Philosophy</span>
+                    <h2 className="font-serif text-4xl md:text-6xl leading-tight mb-8">
+                        "Fabric is not just material. <br/> It's a feeling, a memory, a hug."
+                    </h2>
+                    <p className="text-xl text-white/60 font-light leading-relaxed mb-12">
+                        At The Lyyn, we believe in creating pieces that bring warmth and personality into your life. 
+                        Every stitch is intentional, every fabric chosen for comfort.
+                    </p>
+                    <div className="font-serif text-3xl italic text-primary/70 opacity-80 tracking-widest select-none">
+                        The Lyyn
+                    </div>
+                </motion.div>
+            </div>
+        </section>
+
+        {/* --- ALL COLLECTION --- */}
+        <section className="container py-24">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl lg:text-5xl mb-4 text-foreground">
+                Explore The Collection
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+                Discover our full range of premium blankets, tees, and accessories.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
             {safeProducts.map((p: any) => (
               <ProductCard key={p._id || p.id} product={p} />
             ))}
           </div>
 
           {/* Pagination */}
-          {pages > 1 && (
-            <div className="flex justify-center mt-12 gap-2">
+          {pages > 1 && page <= pages && (
+            <div className="flex justify-center mt-16 gap-3">
               <button
                 disabled={page === 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="p-2 border border-border rounded-md disabled:opacity-50 hover:bg-secondary/50 transition-colors"
+                className="w-10 h-10 flex items-center justify-center border border-border rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-current"
                 aria-label="Previous Page"
               >
                 <ArrowRight size={16} className="rotate-180" />
@@ -310,10 +391,10 @@ const Index = () => {
                 <button
                   key={x + 1}
                   onClick={() => setPage(x + 1)}
-                  className={`w-8 h-8 flex items-center justify-center rounded-md text-sm transition-colors ${
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all ${
                     page === x + 1
-                      ? "bg-primary text-primary-foreground font-medium"
-                      : "hover:bg-secondary/50 border border-border"
+                      ? "bg-primary text-white shadow-lg scale-110"
+                      : "bg-transparent text-muted-foreground hover:bg-secondary"
                   }`}
                 >
                   {x + 1}
@@ -322,51 +403,13 @@ const Index = () => {
               <button
                 disabled={page === pages}
                 onClick={() => setPage((p) => Math.min(pages, p + 1))}
-                className="p-2 border border-border rounded-md disabled:opacity-50 hover:bg-secondary/50 transition-colors"
+                className="w-10 h-10 flex items-center justify-center border border-border rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-current"
                 aria-label="Next Page"
               >
                 <ArrowRight size={16} />
               </button>
             </div>
           )}
-        </section>
-
-        {/* Mission / Philosophy */}
-        <section className="container pb-20 lg:pb-32 pt-4">
-          <div className="max-w-4xl mx-auto text-center border-t border-border pt-16">
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="luxury-button text-muted-foreground mb-8 text-xs lg:text-sm tracking-[0.3em]"
-            >
-              OUR PHILOSOPHY
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-serif text-3xl lg:text-5xl leading-tight mb-10 text-foreground"
-            >
-              "True luxury lies not in excess, but in the absence of the
-              unnecessary. We craft timeless silhouettes for the modern soul."
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <Link
-                to="/about"
-                className="inline-block border-b border-foreground pb-1 font-medium text-sm hover:text-black/70 transition-colors uppercase tracking-widest"
-              >
-                Discover Our Story
-              </Link>
-            </motion.div>
-          </div>
         </section>
       </main>
 

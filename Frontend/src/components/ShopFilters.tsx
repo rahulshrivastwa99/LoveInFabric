@@ -89,21 +89,21 @@ const ShopFilters = ({
           onChange={(e) => setLocalKeyword(e.target.value)}
           onBlur={handleSearchCommit}
           onKeyDown={onSearchKeyDown}
-          className="w-full bg-transparent border-b border-gray-300 py-2 pl-0 pr-8 text-sm font-sans focus:outline-none focus:border-black transition-colors placeholder:text-gray-400 uppercase"
+          className="w-full bg-transparent border-b border-border py-2 pl-0 pr-8 text-sm font-sans focus:outline-none focus:border-foreground transition-colors placeholder:text-muted-foreground/50 uppercase"
         />
         <Search
           size={16}
-          className="absolute right-0 top-2 text-gray-400"
+          className="absolute right-0 top-2 text-muted-foreground"
         />
       </div>
 
       {/* 1. GENDER (Category) */}
-      <div className="border-b border-gray-100 pb-6">
+      <div className="border-b border-border pb-6">
         <button
           onClick={() => toggleSection("category")}
           className="flex items-center justify-between w-full text-left group mb-4"
         >
-          <span className="font-bold text-xs uppercase tracking-widest text-black">
+          <span className="font-bold text-xs uppercase tracking-widest text-foreground">
             Gender
           </span>
           {openSections["category"] ? (
@@ -127,7 +127,7 @@ const ShopFilters = ({
                     className="flex items-center gap-3 cursor-pointer group/label"
                   >
                     <div
-                      className={`w-4 h-4 border flex items-center justify-center transition-colors ${category === cat ? "border-black bg-black" : "border-gray-200"}`}
+                      className={`w-4 h-4 border flex items-center justify-center transition-colors ${category === cat ? "border-primary bg-primary" : "border-muted"}`}
                     >
                       {category === cat && (
                         <Check size={12} className="text-white" />
@@ -141,7 +141,7 @@ const ShopFilters = ({
                       onChange={() => setCategory(cat)}
                     />
                     <span
-                      className={`text-sm font-sans uppercase ${category === cat ? "text-black font-medium" : "text-gray-500"}`}
+                      className={`text-sm font-sans uppercase ${category === cat ? "text-foreground font-medium" : "text-muted-foreground"}`}
                     >
                       {cat}
                     </span>
@@ -154,12 +154,12 @@ const ShopFilters = ({
       </div>
 
       {/* 2. STYLE */}
-      <div className="border-b border-gray-100 pb-6">
+      <div className="border-b border-border pb-6">
         <button
           onClick={() => toggleSection("style")}
           className="flex items-center justify-between w-full text-left group mb-4"
         >
-          <span className="font-bold text-xs uppercase tracking-widest text-black">
+          <span className="font-bold text-xs uppercase tracking-widest text-foreground">
             Style
           </span>
           {openSections["style"] ? (
@@ -189,7 +189,7 @@ const ShopFilters = ({
                     className="flex items-center gap-3 cursor-pointer group/label"
                   >
                      <div
-                      className={`w-4 h-4 border flex items-center justify-center transition-colors ${keyword === style ? "border-black bg-black" : "border-gray-200"}`}
+                      className={`w-4 h-4 border flex items-center justify-center transition-colors ${keyword === style ? "border-primary bg-primary" : "border-muted"}`}
                     >
                       {keyword === style && (
                         <Check size={12} className="text-white" />
@@ -204,7 +204,7 @@ const ShopFilters = ({
                       }
                     />
                     <span
-                      className={`text-sm font-sans ${keyword === style ? "text-black font-medium" : "text-gray-500"}`}
+                      className={`text-sm font-sans ${keyword === style ? "text-foreground font-medium" : "text-muted-foreground"}`}
                     >
                       {style}
                     </span>
@@ -217,12 +217,12 @@ const ShopFilters = ({
       </div>
 
       {/* 3. SIZE */}
-      <div className="border-b border-gray-100 pb-6">
+      <div className="border-b border-border pb-6">
         <button
           onClick={() => toggleSection("size")}
           className="flex items-center justify-between w-full text-left group mb-4"
         >
-          <span className="font-bold text-xs uppercase tracking-widest text-black">
+          <span className="font-bold text-xs uppercase tracking-widest text-foreground">
             Size
           </span>
           {openSections["size"] ? (
@@ -244,10 +244,10 @@ const ShopFilters = ({
                   <button
                     key={s}
                     onClick={() => setSize((prev: string) => (prev === s ? "" : s))}
-                    className={`h-10 border text-xs font-bold transition-all uppercase ${
+                    className={`h-10 border text-xs font-bold transition-all uppercase rounded-md ${
                       size === s
-                        ? "border-black bg-black text-white"
-                        : "border-gray-200 text-gray-700 hover:border-black"
+                        ? "border-primary bg-primary text-white shadow-md"
+                        : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
                     }`}
                   >
                     {s}
@@ -260,12 +260,12 @@ const ShopFilters = ({
       </div>
 
       {/* 4. PRICE */}
-      <div className="border-b border-gray-100 pb-6">
+      <div className="border-b border-border pb-6">
         <button
           onClick={() => toggleSection("price")}
           className="flex items-center justify-between w-full text-left group mb-4"
         >
-          <span className="font-bold text-xs uppercase tracking-widest text-black">
+          <span className="font-bold text-xs uppercase tracking-widest text-foreground">
             Price
           </span>
           {openSections["price"] ? (
@@ -284,9 +284,9 @@ const ShopFilters = ({
             >
               <div className="flex gap-4">
                 <div className="flex-1">
-                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Min</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Min</p>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
                       ₹
                     </span>
                     <input
@@ -295,14 +295,14 @@ const ShopFilters = ({
                       onChange={(e) => setLocalMinPrice(e.target.value)}
                       onBlur={handlePriceCommit}
                       onKeyDown={onPriceKeyDown}
-                      className="w-full bg-gray-50 border border-gray-200 py-2 pl-6 pr-2 text-xs font-medium focus:outline-none focus:border-black transition-colors"
+                      className="w-full bg-secondary/10 border border-border py-2 pl-6 pr-2 text-xs font-medium focus:outline-none focus:border-primary transition-colors rounded-md"
                     />
                   </div>
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Max</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Max</p>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
                       ₹
                     </span>
                     <input
@@ -311,7 +311,7 @@ const ShopFilters = ({
                       onChange={(e) => setLocalMaxPrice(e.target.value)}
                       onBlur={handlePriceCommit}
                       onKeyDown={onPriceKeyDown}
-                      className="w-full bg-gray-50 border border-gray-200 py-2 pl-6 pr-2 text-xs font-medium focus:outline-none focus:border-black transition-colors"
+                      className="w-full bg-secondary/10 border border-border py-2 pl-6 pr-2 text-xs font-medium focus:outline-none focus:border-primary transition-colors rounded-md"
                     />
                   </div>
                 </div>
